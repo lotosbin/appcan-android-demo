@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/project/new.css">
+</head>
+<body class="um-vp sc-bg" ontouchstart>
+<div class="conbor uof">
+    <div class="consj uof"> 
+        <div class="ulev2 uin9">跨域异步请求接口测试</div>
+        <div class="uin8">1、GET请求</div>
+        
+        <div class="umh1"></div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="get"> 获取数据</div>
+        </div>
+        <div class="umh1"></div>
+        <div class="uin10">请求结果：</div>
+        <div class="ubb ubt bc-border bc-bg tcxx breakword" id="adre"></div>
+        <div class="uin8">2、POST请求</div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="file">1.选择文件</div>
+        </div>
+        <div class="umh1"></div>
+        <div class="c-wh ubb ubt bc-border  uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <textarea placeholder="文件地址" type="text" class="ub-f1 font-c" style="min-height: 3em"  id="filepath"></textarea>
+            <div class="umw1-7"></div>
+        </div>
+        <div class="umh1"></div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="post">2.提交文件</div>
+        </div>
+        <div class="umh1"></div>
+        <div class="uin10">请求结果：</div>
+        <div class="ubb ubt bc-border bc-bg tcxx breakword" id="adre1"></div>
+        <div class="umh1"></div>
+    </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>	
+<script src="../js/appcan.tab.js"></script>
+</body>
+<script>
+
+var file = '';
+var httpId = 1;
+var getUrl = 'http://www.kedo.gov.cn/mobile/index/GetIndexInfo.jsp?jsoncallback=?&type=1';
+var postUrl = 'http://www.w3school.com.cn/example/jquery/demo_test_post.asp';
+appcan.ready(function(){
+	appcan.initBounce();
+	uexDevice.cbGetInfo=function (opCode,dataType,data){
+        var device = eval('('+data+')');
+        var connectStatus=device.connectStatus;
+        if(connectStatus!=null&&connectStatus.length>0){
+            if(connectStatus==-1){
+                alert('网络错误');  
+            }
+        }
+    }
+    uexDevice.getInfo('13');
+    uexFileMgr.cbExplorer=function(opCode,dataType,data){
+           file = data;
+           $('#filepath').html(data);
+        }
+	uexXmlHttpMgr.onData = httpSuccess;
+    uexWidgetOne.cbError = function(opCode, errorCode, errorInfo){
+        alert("errorCode:" + errorCode + "\nerrorInfo:" + errorInfo);
+    }
+})
+ appcan.button(".btn", "btn-act", function() {
+            if(this.id=='get'){
+                xmlHttpGet();
+            }else if(this.id=='post'){
+                xmlHttpPost();
+            }else{
+               uexFileMgr.explorer('');
+            }
+        })
+        
+    function xmlHttpPost(){
+        uexXmlHttpMgr.open("2", "POST", postUrl, "60000");
+        //uexXmlHttpMgr.setAppVerify('2',1);
+        uexXmlHttpMgr.setPostData("2", "0", "field", 'value1');
+        uexXmlHttpMgr.setPostData("2", "0", "field2", 'value2');
+        if(file){
+            uexXmlHttpMgr.setPostData("2", "1", "file", file);
+        }
+        uexXmlHttpMgr.send("2");
+        
+    }
+
+    function xmlHttpGet(){
+        uexXmlHttpMgr.open("1", "get", getUrl, "6000");
+        //uexXmlHttpMgr.setAppVerify('1',1);
+        uexXmlHttpMgr.send("1");
+    }
+
+    function httpSuccess(opid,state,result){
+        uexXmlHttpMgr.close(opid);
+        if(opid == 1){
+            $("#adre").html("opCode:" + opid + "<br> state:" + state  + "<br> result:" + result);
+        }else if(opid == 2){
+            $("#adre1").html("opCode:" + opid + "<br> state:" + state  + "<br> result:" + result);
+        }
+    }
+        </script>
+</html>

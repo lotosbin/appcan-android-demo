@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/project/new.css">
+</head>
+<body class="um-vp c-wh-pLG sc-bg" ontouchstart>
+<div class="conbor">
+    <div class="consj"> 
+        <div class="ulev2 uin9">文件</div>
+        <div class="uin8">文件路径</div>
+        <div class="c-wh  ubt ubb bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="联系人姓名" type="text"  class="ub-f1 font-c" id="dirPath" value="wgt://data/test.txt">
+        </div>
+        <div class="uin8">写文件</div>
+        <div class="c-wh ubb ubt bc-border  uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <textarea placeholder="" type="text" class="ub-f1 font-c"  id="data">这里是文件内容。</textarea>
+            <div class="umw1-7"></div>
+        </div>
+        <div class="uin8">读文件</div>
+        <div class="ubb ubt bc-border bc-bg tcxx breakword" id="readData"></div>  
+        
+        
+        <div class="umh1"></div>
+        <div class="ub ub-hor ub-pc">
+            <div class="uin ub-f1">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn1" >创建文件</div>
+            </div>
+            <div class="uin ub-f1">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn2" >写文件</div>
+            </div>
+            <div class="uin ub-f1">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn3" >读文件</div>
+            </div>
+        </div>
+        <div class="umh1"></div>
+        <div class="ub ub-hor ub-pc">
+            <div class="uin ub-f1">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn4" >获取文件长度</div>
+            </div>
+            <div class="uin ub-f1">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn5" >删除文件</div>
+            </div>
+        </div>
+        
+        <div class="uin8">文件夹路径</div>
+        <div class="c-wh  ubt ubb bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="联系人姓名" type="text"  class="ub-f1 font-c" id="dir" value="wgt://data/test2/">
+        </div>
+        <div class="umh1"></div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn6" >创建文件夹</div>
+        </div>
+        <div class="umh1"></div>
+    </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>	
+</body>
+<script>
+
+var cText = 0;
+var cJson = 1;
+var cInt = 2;
+appcan.ready(function(){
+    appcan.initBounce();
+    uexWidgetOne.cbError = function(opCode, errorCode, errorInfo) {
+             alert(errorInfo);
+        }
+
+        uexFileMgr.cbReadFile = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                if ( dataType == 0) {
+                    $('#readData')[0].innerHTML = data;
+                }
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                alert("uex.cInt");
+                break;
+            default:
+                alert("error");
+            }
+        }
+        uexFileMgr.cbIsFileExistByPath = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                if (data == 0) {
+                    alert("文件不存在");
+                } else if (data == 1) {
+                    alert("文件存在");
+                } else {
+                    alert(data);
+                }
+                break;
+            default:
+                alert("error");
+            }
+        }
+
+        uexFileMgr.cbDeleteFileByPath = function(opCode, dataType, data){
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                if (data == 0) {
+                    alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
+                break;
+            default:
+                alert("error");
+            }
+        }
+
+        uexFileMgr.cbGetFileTypeByPath = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                if (data == 1) {
+                    alert("是文件夹");
+                } else if (data == 0) {
+                    alert("是文件");
+                } else {
+                    alert(data);
+                }
+                break;
+            default:
+                alert("error");
+            }
+
+        }
+
+        uexFileMgr.cbGetFileSize = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                alert("文件长度：" + data);
+                break;
+            default:
+                alert("error");
+            }
+        }
+        uexFileMgr.cbExplorer = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                $('#filePath1')[0].innerHTML = data;
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                alert("uex.cInt");
+                break;
+            default:
+                alert("error");
+
+            }
+
+        }
+
+        uexFileMgr.cbMultiExplorer = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:                                                           
+                var text="";
+                var jsonList=eval("("+data+")");
+                  if(jsonList.length == 0){
+                      alert("无数据");
+                  }              
+     　　　　       for(var key in jsonList){　　　　   　　          
+     　　　　       text+=jsonList[key]+"<br>";
+                    }
+        
+                $('#filePath1')[0].innerHTML = text;
+                break;
+            case cInt:
+                alert("uex.cInt");
+                break;
+            default:
+                alert("error");
+            }
+        }
+        uexFileMgr.cbCreateSecure = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                if (data == 0) {
+                    alert("创建加密文件成功");
+                } else {
+                    alert("创建加密文件失败");
+                }
+                break;
+            default:
+                alert("error");
+            }
+
+        }
+        uexFileMgr.cbCreateFile = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                if (data == 0) {
+                    if(opCode == '1'){
+                        alert("创建文件成功");
+                    }
+                } else {
+                    alert("创建文件失败");
+                }
+                break;
+            default:
+                alert("error");
+            }
+
+        }
+        uexFileMgr.cbCreateDir = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                if (data == 0) {
+                    alert("创建文件夹成功");
+                } else {
+                    alert("创建文件夹失败");
+                }
+                break;
+            default:
+                alert("error");
+            }
+        }
+        uexFileMgr.cbOpenFile = function(opCode, dataType, data) {
+           
+            var status = '成功'
+            var option = '打开'
+            if(data==0){
+                status = '成功'
+            }else{
+                status = '失败'
+            }
+            if(opCode=='2'){
+                alert('写文件'+status);
+            }else if(opCode=='3'){
+            }else if(opCode=='8'){
+                
+            }
+            
+
+        }
+        uexFileMgr.cbOpenSecure = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:
+                if (data == 0) {
+                    alert(opCode+"打开加密文件成功");
+                } else {
+                    alert(opCode+"打开加密文件失败");
+                }
+                break;
+            default:
+                alert("error");
+
+            }
+
+        }
+})
+
+    function createFile(path){
+        if (!isnum('1')) {
+            alert("Error");
+            return;
+        }
+        uexFileMgr.createFile('1', path);
+        uexFileMgr.closeFile('1');
+    }
+    function isnum(num) {
+        if (num) {
+            return true;
+        } else {
+            false;
+        }
+    }
+    function createDir(path) {
+        if (!isnum('1')) {
+            alert("Error");
+            return;
+        }
+        uexFileMgr.createDir('20', path);
+
+        uexFileMgr.closeFile('20');
+    }
+    function writeFile(path, data) {
+        if (!isnum('1')) {
+            alert("Error");
+            return;
+        }
+        uexFileMgr.openFile('2', path, '1');
+        uexFileMgr.writeFile('2', '0', data);
+        uexFileMgr.closeFile('2');
+
+    }
+
+    function readFile(path, size) {
+        if (!isnum('1')) {
+            alert("Error");
+            return;
+        }
+        uexFileMgr.openFile('3', path, '1');
+        uexFileMgr.readFile('3', size);
+        uexFileMgr.closeFile('3');
+
+    }
+
+    function getFileSize() {
+        if (!isnum('8')) {
+            alert("Error");
+            return;
+        }
+        uexFileMgr.openFile('8', $('#dirPath').val(), '1');
+        uexFileMgr.getFileSize('8');
+        uexFileMgr.closeFile('8');
+    }
+    appcan.button(".btn", "ani-act", function(){
+                switch(this.id) {
+                case "btn1":
+                    createFile($('#dirPath').val());
+                    break;
+                case "btn2":
+                    writeFile($('#dirPath').val(),$('#data').val());
+                    break;
+                case "btn3":
+                    readFile($('#dirPath').val(),-1);
+                    break;
+                case "btn4":
+                    getFileSize();
+                    break;
+                case "btn5":
+                    uexFileMgr.deleteFileByPath($('#dirPath').val());
+                    break;
+                case "btn6":
+                    createDir($('#dir').val());
+                    break;
+                }
+    });
+</script>
+</html>

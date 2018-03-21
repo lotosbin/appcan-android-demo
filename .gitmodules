@@ -1,0 +1,3 @@
+[submodule "appcan-android"]
+	path = appcan-android
+	url = git@github.com:AppCanOpenSource/appcan-android.git

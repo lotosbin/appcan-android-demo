@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/project/new.css">
+        <link rel="stylesheet" href="css/project/prettify.sons.css">
+    </head>
+    <body class="um-vp c-wh-pLG" ontouchstart>
+        <div id="header1" class="uh  ub ub-ver">
+            <div class="uin11 ub ub-ac ub-f1 ub-pc">
+                <div class="logowh logo ub-img"></div>
+            </div>
+        </div>
+        <div id="content" class="ub-f1 tx-l ub ub-ver uinn">
+            <div class="ub-f2">
+                <div class="text-i">
+                    HiAppCan是一款专为开发者设计的可极速体验AppCan一站式移动开发服务能力的应用。
+                </div>
+                <div class="text-i">
+                    该应用内置了丰富的窗口交互、UI控件库、原生插件库等体验模块，为开发者提供了离线效果演示及文档参考手册。
+                </div>
+                <div class="text-i">
+                    HiAppCan作为一款全新的应用，将不断整合开发者需求，致力为提升用户的移动互联网体验而努力。
+                </div>
+            </div>
+            <div class="ub-f1 ub ub-ver uin6" >
+                <div class="ub ub-ver ub-pc ub-ac uin1">
+                    <div class="IMG_0126 logowh2 ub ub-img"></div>
+                </div>
+                <div class="ub ub-ver ub-pc ub-ac uinn ulev-1">
+                    关注AppCan微信
+                </div>
+                <div class="ub ub-pj ub-ver uinn">
+                    <div class="ub ub-ver ulev0 font-c4">
+                        <div onclick="openth();">
+                            http://www.appcan.cn
+                        </div>
+                        <div class="ub ub-hor uin11">
+                            <div class="sina logowh1 ub-img"></div>
+                            <div class="mar-l"  onclick="openth1();">
+                                http://weibo.com/appcan
+                            </div>
+                        </div>
+                        <div class="ub ub-hor uin11">
+                            <div class="weixin logowh1 ub-img"></div>
+                            <div class="mar-l">
+                                AppCan
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="font-s1 tx-c">
+                ©2010-2014 正益无线（北京）科技有限公司版权所有
+            </div>
+        </div>
+
+        <script src="js/appcan.js"></script>
+        <script src="js/doc.js"></script>
+        <script src="js/prettify.js"></script>
+        <script src="js/appcan.control.js"></script>
+    </body>
+    <script>
+        var value;
+        appcan.ready(function() {
+            //alert("ready");
+            value = uexWidgetOne.platformName;
+        })
+        function openth() {
+        //alert("openth - value = " + value);
+            if (value == "android") {
+            //alert("if");
+                uexWidget.startApp("1", "android.intent.action.VIEW", '{"data":{"mimeType":"text/html","scheme":"http://www.appcan.cn"}}');
+                //uexWidget.loadApp("android.intent.action.VIEW", "text/html", "http://www.appcan.cn");
+            } else {
+            //alert("else");
+                uexWidget.loadApp("http://www.appcan.cn", null, null);
+            }
+
+        }
+
+        function openth1() {
+            if (value == "android") {
+                uexWidget.startApp("1", "android.intent.action.VIEW", '{"data":{"mimeType":"text/html","scheme":"http://weibo.com/appcan"}}');
+                //uexWidget.loadApp("android.intent.action.VIEW", "text/html", "http://weibo.com/appcan");
+            } else {
+                uexWidget.loadApp("http://weibo.com/appcan", null, null);
+            }
+
+        }
+    </script>
+
+</html>

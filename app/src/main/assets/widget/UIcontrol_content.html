@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div>
+            <!--列表开始-->
+            <div class="sc-bg" id="treeview">
+
+            </div>
+            <!--列表结束-->
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/appcan.listview.js"></script>
+        <script src="js/appcan.treeview.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            //appcan.initBounce();
+        })
+        var tv = appcan.treeview({
+            selector : "#treeview",
+            defaultOpen : 1//默认打开第几项，必须包含数据
+        });
+        tv.set([{
+            header : "按钮(button)",
+            name : "control",
+            url : "UIcontrol/button.html"
+        }, {
+            header : "单选框(radio)",
+            name : "control",
+            url : "UIcontrol/radio.html"
+        }, {
+            header : "复选框(checkbox)",
+            name : "control",
+            url : "UIcontrol/check.html"
+        }, {
+            header : "下拉框(select)",
+            name : "control",
+            url : "UIcontrol/select.html"
+        }, {
+            header : "文本输入(input,texarea)",
+            name : "control",
+            url : "UIcontrol/input.html"
+        }, {
+            header : "消息框(dialog)",
+            name : "control",
+            url : "UIcontrol/dialog.html"
+        }, {
+            header : "图片轮播(slider)",
+            name : "control",
+            url : "UIcontrol/slider.html"
+        }, {
+            header : "列表(list)",
+            content : [{
+                title : '单行列表',
+                name : "listview",
+                url : "UIcontrol/listview.html"
+            }, {
+                title : '单行右侧带箭头',
+                name : "listview",
+                url : "UIcontrol/listview.html"
+            }, {
+                title : '单行带描述右侧带箭头',
+                name : "listview",
+                url : "UIcontrol/listview.html"
+            }, {
+                title : '单行复选',
+                name : "listview",
+                url : "UIcontrol/listview.html"
+            }, {
+                title : '单行单选',
+                name : "listview",
+                url : "UIcontrol/listview.html"
+            }, {
+                title : '单行全包含',
+                name : "listview",
+                url : "UIcontrol/listview.html"
+            }, {
+                title : '单行带控件',
+                name : "listview",
+                url : "UIcontrol/listview.html"
+            }, {
+                title : '多行列表',
+                name : "listview",
+                url : "UIcontrol/listview.html"
+            }, {
+                title : '文字换行缩略',
+                name : "listview",
+                url : "UIcontrol/listview.html"
+            }, {
+                title : '分组列表',
+                name : "listview",
+                url : "UIcontrol/lv_group.html"
+            }]
+        }, {
+            header : "标题导航栏(header)",
+            content : [{
+                title : '图片标题',
+                name : "control",
+                url : "UIcontrol/nav-icon.html"
+            }, {
+                title : 'FontAwesome图片标题',
+                name : "control",
+                url : "UIcontrol/nav-fa.html"
+            }]
+        }, {
+            header : "开关(switch)",
+            name : "control",
+            url : "UIcontrol/switch.html"
+        }, {
+            header : "选项卡(tab bar)+多Frame",
+            content : [{
+                title : '纯文字',
+                name : "control",
+                url : "UIcontrol/tab_text.html"
+            }, {
+                title : '文字加图标',
+                name : "control",
+                url : "UIcontrol/tab_text_icon.html"
+            }, {
+                title : '图标',
+                name : "control",
+                url : "UIcontrol/tab_icon.html"
+            }]
+        }, {
+            header : "图标",
+            content : [{
+                title : '图片图标',
+                name : "control",
+                url : "UIcontrol/icon.html"
+            }, {
+                title : 'Font Awesome图标',
+                name : "control",
+                url : "UIcontrol/fa.html"
+            }]
+        }]);
+
+        tv.on('listviewClick', function(ele, data, obj) {
+            if (data.name && data.url) {
+                appcan.locStorage.setVal("lv_index", ele.data("index"));
+                appcan.window.open(data.name, data.url, 10);
+            }
+        });
+        tv.on('click', function(ele, obj, subobj) {
+            if (obj.name && obj.url) {
+                appcan.window.open(obj.name, obj.url, 10);
+            }
+        });
+
+    </script>
+</html>

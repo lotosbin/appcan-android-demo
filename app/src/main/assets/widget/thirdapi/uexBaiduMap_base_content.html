@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp sc-bg" ontouchstart>
+        <div class="conbor uof">
+            <div class="consj" id="topDiv">
+                <div class="ulev2 uin9">
+                    基本地图功能
+                </div>
+                <div class="umh1"></div>
+                <div class="uinn">
+                    <div class="select uba bc-border bc-text">
+                        <div class="text">
+                            标准地图
+                        </div>
+                        <div class="icon"></div>
+                        <select selectedindex="0">
+                            <option value="0">标准地图</option>
+                            <option value="1">卫星地图</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="umh1"></div>
+                <div class="ub ub-hor ub-pc" id="height">
+                    <div class="uin  ub-f1 ">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn1" >
+                            打开
+                        </div>
+                    </div>
+                    <div class="uin  ub-f1 ">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn2" >
+                            设置类型
+                        </div>
+                    </div>
+                    <div class="uin  ub-f1 ">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn3" >
+                            隐藏map
+                        </div>
+                    </div>
+
+                </div>
+                <div class="umh1" id="heights"></div>
+                <div class="ub ub-hor ub-pc">
+                    <div class="uin  ub-f1 ">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn4" >
+                            显示map
+                        </div>
+                    </div>
+                    <div class="uin  ub-f1 ">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn5" >
+                            关闭
+                        </div>
+                    </div>
+
+                </div>
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+            uexWidgetOne.cbError = function(opid, type, data) {
+                alert(data);
+            }
+        })
+        var type = '0';
+        appcan.select(".select", function(ele, value) {
+            type = value;
+        });
+        function setType() {
+            //type 为0（标准地图）,1（卫星地图），2（打开实时路况），3（关闭实时路况）
+            var t = parseInt(type);
+            uexBaiduMap.setType(t);
+        }
+
+        function clean() {
+            uexBaiduMap.clean();
+        }
+
+        function openmap() {
+            var divTop = $('#topDiv')[0].offsetTop + $('#topDiv')[0].offsetHeight;
+            var btheight = $('#height')[0].offsetHeight + $('#heights')[0].offsetHeight;
+            var s = window.getComputedStyle(document.body, null);
+            var w = parseInt(parseInt(s.width) - 20);
+            //var w = screen.availWidth-20;
+            //var h = screen.availHeight;
+            var h = parseInt(s.height);
+            isSetLoc = 0;
+            uexBaiduMap.open('6643147DF56BD40F6140AB3ABA5A3FFBE12C439F', 10, divTop + btheight + 10, w, h - divTop + btheight, '116.401', '39.925');
+            setType();
+        }
+
+        function hideMap() {
+            uexBaiduMap.hide();
+        }
+
+        function showMap() {
+            uexBaiduMap.show();
+        }
+
+
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                //alert(111);
+                openmap();
+                break;
+            case "btn2":
+                setType();
+                break;
+            case "btn3":
+                hideMap();
+                break;
+            case "btn4":
+                showMap();
+                break;
+            case "btn5":
+                clean();
+                break;
+            }
+        })
+    </script>
+</html>

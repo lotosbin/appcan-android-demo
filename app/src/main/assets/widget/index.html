@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/project/new.css">
+        <style>
+        </style>
+    </head>
+    <body class="um-vp sc-bg" >
+        <div id="page_0" class="up ub ub-ver" tabindex="0">
+            <div id="header" class="uh  ub ub-ver">
+                <div class="uin3 ub ub-pj ub ub-ac ub-f1">
+                    <div class="logowh logo ub-img"></div>
+                    <div class="aboutwh about ub-img marg" ontouchstart="appcan.touch('about-btn')" onmousedown="appcan.touch('about-btn')"  onclick="appcan.window.open('about','about.html','10')"></div>
+                </div>
+            </div>
+            <div id="content" class="ub-f1 tx-l ub ub-ver bc-text-head uinn">
+                <div class="ub-f2 ub-hor ub">
+                    <div class="metro ub-f3 ub ub-ver ub-ac jssdkbg padd1 uof ub-pc"  data-name="JS_SDK" data-url="UIFW.html">
+                        <div class="apipicwh ub-img jssdk "></div>
+                        <div class="font-p">
+                            窗口交互<span style="opacity: 0;">a</span>  
+                        </div>
+                        <div class="ulev-1 frame">UI框架</div>
+                    </div>
+                    <div class="metro  ub-f1 ub ub-ver ub-ac uikjbg padd1  ub-pc" data-name="UIcontrol" data-url="UIcontrol.html">
+                        <div class="apipicwh ub-img uikj1"></div>
+                        <div class="font-p">
+                            UI 控件
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="height: .5em;"></div>
+                <div class="ub-f2 ub ub-hor">
+                    <div class="metro ub-f3 ub ub-ver xtbg ub-ac ub-pc uof"    data-name="systemapi" data-url="systemapi.html">
+                        <div class="ub-img xtapi apipicwh1 marg1"></div>
+                        <div class="ulev1">
+                            系统 API
+                        </div>
+                        <div class="ulev-1 frame1">原生能力</div>
+                    </div>
+                    <div class="ub-f1 ub ub-ver">
+                        <div class="metro ub-f1 ub ub-ver ub-ac jmbg padd1  ub-pc"  data-name="UIapi" data-url="UIapi.html">
+                            <div class="apipicwh ub-img jmapi marg1"></div>
+                            <div class="font-p">
+                                界面 API
+                            </div>
+                        </div>
+                        
+                        <div class="metro ub-f1 ub ub-ver ub-ac wlbg padd1  ub-pc"  data-name="networkapi" data-url="networkapi.html">
+                            <div class="apipicwh ub-img wlapi "></div>
+                            <div class="font-p">
+                                网络 API
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ub-f2 ub ub-hor">
+                    <div class="ub ub-f2">
+                    <div class="metro ub-f1 ub ub-ver ub-ac sfbg padd1  ub-pc"  data-name="thirdapi" data-url="thirdapi.html">
+                        <div class="apipicwh ub-img sfapi "></div>
+                        <div class="ub ub-ac ub-pc font-p ">
+                            <div class="ub">
+                            <!-- <div style="opacity: 0;">a</div> -->
+                                                                                    第三方 API
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="metro ub ub-f1 ub-ver ub-ac dmtbg ub-pc" style="padding:0 0.2em;" data-name="mediaapi" data-url="mediaapi.html">
+                        <div class="apipicwh ub-img dmtapi "></div>
+                        <div class="ub ub-ac ub-pc font-p">
+                            <div class="ub">
+                            <!-- <div style="opacity: 0;">a</div> -->
+                                                                                    多媒体 API
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="metro ub ub-f1 ub-ver ub-ac albg padd1  ub-pc"   data-name="case" data-url="case.html">
+                        <div class="apipicwh ub-img alapi "></div>
+                        <div class="ub font-p"><div class="ub ub-f1">案例  APP</div><div style="opacity: 0;">a</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+    </body>
+    <script>
+        var titHeight = 0;
+        appcan.ready(function(){
+
+        });
+        appcan.button(".metro", "ani-act", function() {
+            appcan.window.open($(this).data("name"), $(this).data("url"), 10);
+        })
+    </script>
+</html>

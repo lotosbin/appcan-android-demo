@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp c-wh-pLG" ontouchstart>
+        <div class="conbor">
+            <div class="consj">
+                <div class="ulev2 uin9">
+                    窗口管理
+                </div>
+                <div class="uin8">
+                    alert提示框
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn1">
+                        显示效果
+                    </div>
+                </div>
+                <div class="uin8">
+                    confirm提示框
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn2">
+                        显示效果
+                    </div>
+                </div>
+                <div class="uin8">
+                    prompt提示框
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn3">
+                        显示效果
+                    </div>
+                </div>
+
+                <div class="uin8">
+                    actionSheet
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn4">
+                        显示效果
+                    </div>
+                </div>
+
+                <div class="uin8">
+                    打开一个新窗口
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn5">
+                        打开新窗口
+                    </div>
+                </div>
+
+                <div class="ub uin8">
+                    打开一个浮动框
+                    <div class="kuohao">
+                        (Popover)
+                    </div>
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn6">
+                        打开
+                    </div>
+                </div>
+
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+            //alert(11111);
+            uexWindow.onStateChange = stateChange;
+            uexWindow.closeSlibing("1");
+            uexWindow.closeSlibing("2");
+            uexWindow.cbConfirm = ConfirmSuccess;
+            uexWindow.cbGetState = getCurState;
+            uexWindow.cbPrompt = function(opCode, errorCode, errorInfo) {
+                alert("" + errorInfo);
+            };
+            uexWindow.cbGetUrlQuery = getQuery;
+            uexWindow.cbActionSheet = actionSheetSuccess;
+            uexWindow.onKeyPressed = function(keyCode) {
+                $('#key')[0].innerHTML = "点击了：" + keyCode + " 键";
+            }
+            uexWidgetOne.cbError = function(opCode, errorCode, errorInfo) {
+                alert("errorCode:" + errorCode + "\n" + "errorInfo:" + errorInfo);
+            }
+            uexWindow.onWindowUrlChange = getSuc;
+            uexWindow.onOAuthInfo = onOAuth;
+        })
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                uexWindow.alert('alert提示框', '提示内容', '确定');
+                break;
+            case "btn2":
+                showConfirm();
+                break;
+            case "btn3":
+                showPrompt();
+                break;
+            case "btn4":
+                openMenu();
+                break;
+            case "btn5":
+                openn();
+                break;
+            case "btn6":
+                openpop();
+                break;
+            }
+        })
+        function showConfirm() {
+            //var value = $('#confirmbutton').val();
+            var value = "确定;取消";
+            /* if(value == null || value.length == 0){
+             alert("参数不能为空");
+             return;
+             }*/
+            var mycars = value.split(";");
+            uexWindow.confirm('confirm提示框', '提示内容', mycars);
+           
+        }
+
+        function ConfirmSuccess(opId, dataType, data) {
+            alert("用户点击了第 " + data + "个按钮");
+        }
+
+        function selectList(opId, dataType, data) {
+            alert("用户点击了第 " + "" + "个按钮");
+        }
+
+        function showPrompt() {
+            // var value = $('#promptbutton').val();
+            var value = "确定;取消";
+            /*if(value == null || value.length == 0){
+             alert("参数不能为空");
+             return;
+             }*/
+            var mycars = value.split(";");
+            uexWindow.prompt('prompt提示框', '提示内容', '', mycars);
+
+        }
+
+        function promptSuccess(opId, dataType, data) {
+            var obj = eval('(' + data + ')');
+            alert("用户的输入：" + obj.val() + ",点击了第" + obj.num + "个按钮");
+        }
+
+        function showActionSheet() {
+            var value = $('#actionSheetButton').val();
+            if (value == null || value.length == 0) {
+                alert("参数不能为空");
+                return;
+            }
+            var mycars = value.split(";");
+            uexWindow.actionSheet($('#actionSheetTitle').val(), $('#cancelMsg').val(), mycars);
+        }
+
+        function showSelectList() {
+            var value = $('#list_item').val();
+            if (value == null || value.length == 0) {
+                alert("参数不能为空");
+                return;
+            }
+            var mycars = value.split("*");
+            uexWindow.selectList(mycars);
+        }
+
+        function actionSheetSuccess(opId, dataType, data) {
+            alert("用户点击了第 " + data + "个按钮");
+        }
+
+        function msg() {
+            var type = $('#t_type').val();
+            var loc = $('#t_loc').val();
+            var msg = $('#t_msg').val();
+            var del = $('#t_del').val();
+            uexWindow.toast(type, loc, msg, del);
+        }
+
+        function closeToast() {
+            uexWindow.closeToast();
+        }
+
+        var flag_normal = 0x0;
+        //标准不加密
+        var flag_dialog = 0x1;
+        //对话框
+        var flag_ob = 0x2;
+        //加密
+        function openn() {
+            /*var anim = $('#opp').val();
+            var dizhi = $('#dizhi').val();
+            var time = $('#tim').val();*/
+            //appcan.execScriptInWin('uexWindow','openPopover()');
+            //appcan.execScriptInWin('uexWindow','openNew();');
+            //uexWindow.open('new', '0', 'new.html', '10', '', '',flag_normal|64, 500);
+            appcan.window.open('new', 'new.html', '10');
+        }
+
+        function openGlobal() {
+            uexWindow.open('global', '0', 'global/index.html', '0', '', '', 0);
+        }
+
+        function openxll() {
+            var anim = $('#opp').val();
+            var time = $('#tim').val();
+            uexWindow.open('dd', '0', 'vancl/helloWorld.html', anim, '', '', flag_normal | 64, time);
+        }
+
+        function opennn(arg) {
+            uexWindow.open('ddd', '0', 'xx.html', arg, '', '', (flag_normal | flag_ob));
+        }
+
+        function openh(arg) {
+            uexWindow.open('exc', '0', 'hidden.html', '5', '', '', arg);
+        }
+
+        function openMenu() {
+            var as = new Array(3);
+            /* as[0]=$('#menu_list_0').val();
+             as[1]=$('#menu_list_1').val();
+             as[2]=$('#menu_list_2').val();*/
+            as[0] = "标签一";
+            as[1] = "标签二";
+            as[2] = "标签三";
+            uexWindow.actionSheet('菜单标题', '取消', as)
+        }
+
+        function openpop() {
+            /*var x = $('#xx").val();
+             var y = $('#yy").val();
+             var w = $('#ww").val();
+             var h = $('#hh").val();
+             */
+            appcan.execScriptInWin('uexWindow', 'openPopover()');
+        }
+
+        function closepop() {
+            uexWindow.closePopover("sss");
+        }
+
+        // function openpopOauth(){
+        // var x = $('#xx1").val();
+        // var y = $('#yy1").val();
+        // var w = $('#ww1").val();
+        // var h = $('#hh1").val();
+        // uexWindow.openPopover("sss", "0", "pop.html", "", x, y, w, h, "10", "1");
+        // }
+        function onOAuth(name, url) {
+            $('#ot')[0].innerHTML = "popOver Name：" + name + " , 改变后的url:" + url;
+        }
+
+        function stateChange(state) {
+            if (state == 0) {
+                //alert("state:前台");
+            } else {
+                //alert("state:后台");
+            }
+        }
+
+        function getCurState(opcode, datatype, data) {
+            alert(data);
+        }
+
+        function getsyn() {
+            alert('Query参数值(android3.0及以上专用,其余版本和Iphone上均取不到值):' + uexWindow.getUrlQuery());
+        }
+
+        function getQuery(opcode, datatype, data) {
+            alert(data);
+        }
+
+        function preOpen() {
+            uexWindow.open('preopen', '0', 'vancl/index.html', '5', '', '', '64');
+        }
+
+        function preOpen1() {
+            uexWindow.open('preopen1', '0', 'popindex.html', '5', '', '', '64');
+        }
+
+        function winBack() {
+            uexWindow.evaluateScript("uexWindow", "0", "winBack()");
+        }
+
+    </script>
+</html>

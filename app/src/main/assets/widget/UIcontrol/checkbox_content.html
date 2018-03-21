@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="uinn">
+            单选按钮-左对齐
+        </div>
+        <div id="listview1"  class="ubt bc-border sc-bg">
+                    
+        </div>
+        <br>
+        <div class="uinn">
+            单选按钮-右对齐
+        </div>
+        <div id="listview2"  class="ubt bc-border sc-bg">
+                    
+        </div>        
+        
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.listview.js"></script>
+    </body>
+    <script>
+        
+        appcan.ready(function() {
+            appcan.initBounce();
+        })
+        appcan.button(".btn", "ani-act", function() {
+            console.log("click btn", this.id);
+        })
+        
+        var lv1 = appcan.listview({
+            selector : "#listview1",
+            type : "thinLine",
+            hasIcon : false,
+            hasAngle : false,
+            hasSubTitle : false,
+            multiLine : 1,
+            hasCheckbox : true,
+            align : 'left'
+        });
+        
+        lv1.set([{
+            title : "复选框 CheckBox"
+        },{
+            title : "复选框 CheckBox"
+        }]);
+        
+        var lv2 = appcan.listview({
+            selector : "#listview2",
+            type : "thinLine",
+            hasIcon : false,
+            hasAngle : false,
+            hasSubTitle : true,
+            multiLine : 1,
+            hasCheckbox : true,
+            align : 'right'
+        });
+        
+        lv2.set([{
+            title : "复选框 CheckBox"
+        },{
+            title : "复选框 CheckBox"
+        }]);
+        
+    </script>
+</html>

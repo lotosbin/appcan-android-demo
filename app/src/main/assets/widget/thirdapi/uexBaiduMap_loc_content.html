@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp c-wh-pLG" ontouchstart>
+        <div class="conbor uof">
+            <div class="consj" id="topDiv">
+                <div class="ulev2 uin9">
+                    位置功能
+                </div>
+                <div class="umh1"></div>
+                <div class="ub ub-hor" id="height">
+                    <div class="uin ub ub-f1 ub-con">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc ub-f1 ub-con" id="btn1" >
+                            打开
+                        </div>
+                    </div>
+
+                    <div class="uin ub">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc  ub-f1 ub-con" id="btn2" >
+                            获得当前位置
+                        </div>
+                    </div>
+                    <div class="uin ub ub-f1 ub-con">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc  ub-f1 ub-con" id="btn3" >
+                            关闭
+                        </div>
+                    </div>
+                </div>
+                <div class="umh1" id="heights"></div>
+                <div class="ub ub-hor">
+                    <div class="uin ub ub-f1 ub-con">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc ub-f1 ub-con" id="btn4" >
+                            显示用户位置标注
+                        </div>
+                    </div>
+                    <div class="uin ub ub-f1 ub-con">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc ub-f1 ub-con" id="btn5" >
+                            隐藏用户位置标注
+                        </div>
+                    </div>
+                </div>
+
+                <div class="umh1"></div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn6" >
+                        设置地图中心经纬度
+                    </div>
+                </div>
+                <div class="umh1"></div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn7" >
+                        Goolge经纬度转换为百度经纬度
+                    </div>
+                </div>
+                <div class="umh1"></div>
+
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+            uexWidgetOne.cbError = function(opid, type, data) {
+                alert(data);
+            }
+
+            uexBaiduMap.cbGetCurrentLocation = function(i, t, data) {
+                alert(data);
+                var obj = eval('(' + data + ')');
+                //document.getElementById('moveState')[0].innerHTML ="longitude:" +obj.jkLongitude+"<br>jkLatitude: "+obj.jkLatitude;
+
+                if (isSetLoc == 1) {
+                    uexBaiduMap.setCenter(obj.longitude, obj.latitude);
+                    uexBaiduMap.showUserLocation();
+                }
+            };
+
+            //用户位置改变时，回调函数
+            uexBaiduMap.cbShowUserLocation = function(mid, type, data) {
+                var obj = eval('(' + data + ')');
+                alert("位置经度:＝" + obj.longitude + "\n位置纬度＝" + obj.latitude);
+            };
+            uexBaiduMap.cbBaiduFromGoogle = function(longitude, latitude) {
+                alert("经度:＝" + longitude + "\n纬度＝" + latitude);
+            };
+        })
+        var isSetLoc = 0;
+
+        function clean() {
+            isSetLoc = 0;
+            uexBaiduMap.clean();
+        }
+
+        function openmap() {
+            var divTop = $('#topDiv')[0].offsetTop + $('#topDiv')[0].offsetHeight;
+            var btheight = $('#height')[0].offsetHeight+$('#heights')[0].offsetHeight;
+            var s = window.getComputedStyle(document.body, null);
+            var w =parseInt(parseInt(s.width) - 20);
+            //var w = screen.availWidth-20;
+            //var h = screen.availHeight;
+             var h = parseInt(s.height);
+            isSetLoc = 0;
+            uexBaiduMap.open('6643147DF56BD40F6140AB3ABA5A3FFBE12C439F', 10, divTop + btheight + 10, w, h - divTop + btheight, '116.401', '39.925');
+        }
+
+        function getCurrentLocation() {
+            isSetLoc = 0;
+            uexBaiduMap.getCurrentLocation();
+        }
+
+        function showUserLocation() {
+            isSetLoc = 1;
+            uexBaiduMap.getCurrentLocation();
+            //uexBaiduMap.showUserLocation();
+        }
+
+        function hideUserLocation() {
+            isSetLoc = 0;
+            uexBaiduMap.hideUserLocation();
+        }
+
+        function getBaiduFromGoogle() {
+            isSetLoc = 0;
+            uexBaiduMap.getBaiduFromGoogle(116.401, 39.925);
+        }
+
+        function setCenter() {
+            isSetLoc = 0;
+            uexBaiduMap.setCenter("116.309", "39.977");
+            //；'116.401','39.925'是天安门位置
+        }
+
+
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                openmap();
+                break;
+            case "btn2":
+                getCurrentLocation();
+                break;
+            case "btn3":
+                clean();
+                break;
+            case "btn4":
+                showUserLocation();
+                break;
+            case "btn5":
+                hideUserLocation();
+                break;
+            case "btn6":
+                setCenter();
+                break;
+            case "btn7":
+                getBaiduFromGoogle();
+                break;
+            }
+        })
+    </script>
+</html>

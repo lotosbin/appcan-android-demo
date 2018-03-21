@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div id="page_0" class="up ub ub-ver" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head head-p">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">uexCoverFlow2</h1>
+                <div class="nav-btn nav-bt" id="nav-right">
+                    <div class="fa fa-book ulev2"></div>
+                </div>
+            </div>
+            <!--header结束-->
+            <div class="conbor">
+                <div class="consj"  id="topDiv">
+                    <div class="ulev2 uin9">
+                        3D图片轮播
+                    </div>
+                </div>
+
+            </div>
+            <!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        var f = 1;
+        var titHeight = 0;
+        appcan.ready(function() {
+            contH = parseInt($('.conbor').offset().height);
+            contW = parseInt($('.conbor').offset().width);
+            w = window.screen.width;
+            h = window.screen.height;
+            titHeight = $('#header').offset().height;
+            f = w / contW;
+            //appcan.openPopoverByEle("content", "uexCoverFlow2_content.html", 0, titHeight);
+            window.onorientationchange = window.onresize = function() {
+                appcan.resizePopoverByEle("content", 0, $("#header").offset().height);
+            }
+            uexWidgetOne.cbError = function(opid, type, error) {
+                alert(error);
+            }
+            //open的回调函数,
+            uexCoverFlow2.loadData = function(id) {
+                //            alert('id:'+id);
+                //            http://www.cmkjz.com/uploads/allimg/100116/0134423.jpg
+                //            http://82238.com/uploads/allimg/110519/2-110519130404.jpg
+                //            http://www.qqhead.com/UploadFiles/2010-04/2010458740103062.gif
+                var jsonStr = '{"id":"' + id + '","alpha":"0","data":[{"title":"","imageUrl":"res://loading_pic1.jpg"},{"title":"便捷！网络部署App,摆脱数据线","imageUrl":"res://loading_pic2.jpg"},{"title":"高效！项目云端同步，多人协同开发","imageUrl":"res://loading_pic3.jpg"},{"title":"所见即所得！真机同步调试应用代码","imageUrl":"res://loading_pic4.jpg"},{"title":"高效！代码提示，无忧编程","imageUrl":"res://loading_pic5.jpg"}]}';
+                uexCoverFlow2.setJsonData(jsonStr, "res://uexCoverFlow2_tupian.png");
+            }
+            uexCoverFlow2.onItemSelected = function(opId, index) {
+                alert("opId:" + opId + "index:" + index)
+            }
+            pieOpen();
+        });
+        function cbOpen(a, b, c) {
+            alert(a + b + c);
+        }
+
+        function pieOpen() {
+
+            // var w = $('#page_0').offset().width;
+            // var divTop = titHeight + $('#topDiv').offset().height;
+            // var h = $('#page_0').offset().height/2;
+            //uexCoverFlow2.open('500', "10", divTop , w - 20, h);
+            var t = parseInt((titHeight + contH) * f);
+            //var h1 = h - t;
+            
+            h1=parseInt(contW*f*0.42);
+            //alert("f:"+f);
+            //alert("contW*f:"+contW*f);
+            //alert("h1:"+h1);
+            uexCoverFlow2.open('500', "0", t+20, contW*f, h1);
+        }
+
+
+        appcan.button(".nav-btn", "btn-act", function(a, b) {
+            var btn = $(a.currentTarget);
+            var btn_id = btn.attr('id');
+            if (btn_id == 'nav-left') {
+                appcan.window.close(-1);
+            } else {
+                appcan.setLocVal('title', 'uexCoverFlow2');
+                appcan.window.open('API', '../API.html', 10);
+            }
+        })
+    </script>
+</html>

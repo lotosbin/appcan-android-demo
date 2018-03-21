@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+
+    </head>
+    <body class="um-vp c-wh-pLG sc-bg" ontouchstart>
+        <div class="conbor">
+            <div class="consj">
+                <div class="ulev2 uin9">
+                    本地通知
+                </div>
+                <div class="uin8">
+                    添加本地通知
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn1">
+                        添加本地通知
+                    </div>
+                </div>
+                <div class="uin8">
+                    删除指定本地通知
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn2">
+                        删除指定本地通知
+                    </div>
+                </div>
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+            uexLocalNotification.onActive = onActiveCallBack;
+            uexLocalNotification.cbGetData = cbGetData;
+        })
+        function addNotification() {
+            alert("已经设置闹钟，十秒钟后将会提醒！");
+            var d = new Date();
+            d = d.getTime() + 10 * 1000;
+            //non1-id, weekly, d, ""-ring Url
+            //non1
+            uexLocalNotification.add("alarm_6", d, 1, "message body", "ok", "default", "daily", "5");
+        }
+
+        function onActiveCallBack(notificationID) {
+            alert(notificationID + " active");
+        }
+
+        function cbGetData(notificationID, msg) {
+            alert(msg);
+        }
+
+        function test(ret) {
+            alert(ret);
+        }
+
+        function del() {
+            uexLocalNotification.remove('alarm_6');
+            alert("删除指定本地通知成功");
+        }
+
+        function delAll() {
+            uexLocalNotification.removeAll();
+            alert("删除指定本地通知成功");
+        }
+
+
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                addNotification();
+                break;
+            case "btn2":
+                del();
+                break;
+            }
+        })
+    </script>
+</html>

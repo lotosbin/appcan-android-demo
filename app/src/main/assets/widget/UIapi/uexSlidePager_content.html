@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+        <script type="text/javascript"></script>
+    </head>
+    <body class="um-vp c-wh-pLG" ontouchstart>
+        <div class="conbor">
+            <div class="consj">
+                <div class="ulev2 uin9">
+                    滑动切换页面
+                </div>
+                <div class="uin8">
+                    打开滑动切换页面
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head btn1-cor ub-ac ub-pc" id="btn1">
+                        打开
+                    </div>
+                </div>
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        var cText = 0;
+        var cJson = 1;
+        var cInt = 2;
+        appcan.ready(function() {
+            appcan.initBounce();
+
+        })
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                appcan.window.open('slidePager', 'slidePager.html', '10');
+                break;
+            }
+        })
+    </script>
+</html>

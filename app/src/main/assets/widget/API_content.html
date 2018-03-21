@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/project/new.css">
+        <link rel="stylesheet" href="css/project/prettify.sons.css">
+    </head>
+    <body class="um-vp c-wh-pLG" ontouchstart>
+
+        <div id="content" style="padding: 0 .5em;word-break: break-all;" class="uof  ">
+                <div class="ub-f1  ub-ac ub-pc ub-ver uhide" id="net">
+                    <div class="network ub-img logowh2"></div>
+                    <div id="" class="ub ub-ver sc-text ub-pc tx-c"style="padding-top: 2em">
+                        <div class="ulev0 uinn">数据加载失败</div>
+                        <div class="ulev-4">当前网络不给力请重新加载</div>
+                    </div>
+                    
+                </div>
+        </div>
+
+        <script src="js/appcan.js"></script>
+        <script src="js/doc.js"></script>
+        <script src="js/prettify.js"></script>
+        <script src="js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+            getData();
+            uexDevice.cbGetInfo=function (opCode,dataType,data){
+                var device = eval('('+data+')');
+                var connectStatus=device.connectStatus;
+                if(connectStatus!=null&&connectStatus.length>0){
+                    if(connectStatus==-1){
+                        $('#content').addClass('ub ub-fv');
+                        $('#net').addClass('ub');
+                        $('#net').removeClass('uhide');
+                    }else{
+                        $('#content').removeClass('ub ub-fv');
+                        $('#net').addClass('uhide');
+                        $('#net').removeClass('ub');
+                        getData();
+                    }
+                }
+            }
+            uexDevice.getInfo('13');
+            appcan.window.subscribe("API-refresh", function() {
+                uexDevice.getInfo('13');
+            });
+        })
+        function getData() {
+            var title = appcan.getLocVal('title');
+            var url = 'http://newdocx.appcan.cn/docxapi/findInfoByTitle?title='+title;
+            appcan.window.openToast('加载中...', '0', '5', '1');
+            
+            appcan.request.ajax({
+                url : url,
+                type : "GET",
+                timeout:"30000",
+                success : function(data) {
+                    try {
+                        data = JSON.parse(data);
+                        if (data.status == 0) {
+                            var content = unescape(data.data[0].content);
+                            content = content.replace(/size24{font-size:24px;}/, "size24{font-size:1.5em;}");
+                            content = content.replace(/size18{font-size:18px;}/, "size18{font-size:1.125em;}");
+                            content = content.replace(/size16{font-size:16px;}/, "size16{font-size:1em;}");
+                            content = content.replace(/size14{font-size:14px;}/, "size14{font-size:.875em;}");
+                            content = content.replace(/size12{font-size:12px;}/, "size12{font-size:.75em;}");
+                            content = content.replace(/line-height:45px;/, "line-height:2em;");
+                            content = content.replace(/height:20px;/g, "height:1.25em;");
+                            content = content.replace(/padding:4px 0px;/, "padding:.3em 0px;");
+                            content = content.replace(/padding:5px 0 0 0;/, "padding:.5em 0 0 0;");
+                            content = content.replace(/padding:20px 0 0 0;/, "padding:1.25em 0 0 0;");
+                            content = content.replace(/line-height:28px;/, "line-height:1.25px;");
+                            content = content.replace(/padding:10px 0 0 0;/, "padding:1em 0 0 0;");
+                            $('#content').removeClass('ub ub-fv');
+                            $('#content').html(content);
+                            prettyPrint();
+                        }
+                    } catch(e) {
+                          
+                    }
+                    appcan.window.closeToast();
+                },
+                error:function(){
+                    appcan.window.closeToast();
+                    $('#content').addClass('ub ub-fv');
+                    $('#net').addClass('ub');
+                    $('#net').removeClass('uhide');
+                }
+            });
+
+        }
+    </script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/appcan.control.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/project/new.css">
+</head>
+<body class="um-vp" ontouchstart>
+<div>
+     <!--列表开始-->
+    <div class="c-wh-pLG" id="listview">
+        
+        
+    </div>
+    <!--列表结束-->
+</div>
+<script src="js/appcan.js"></script>
+<script src="js/appcan.control.js"></script>	
+<script src="js/appcan.listview.js"></script>
+</body>
+<script>
+
+appcan.ready(function(){
+	appcan.initBounce();
+})
+
+var lv = appcan.listview({
+            selector : "#listview",
+            type : "multiLine",
+            hasIcon : false,
+            hasAngle : false,
+            hasSubTitle:false
+        });
+        lv.set([{
+            title : "uexAliPay",
+            describe : '支付宝',
+            pagename : "uexAliPay",
+            pageurl:"thirdapi/uexAliPay.html"
+        },{
+            title : "uexBaiduMap",
+            describe : '百度地图',
+            pagename : "uexBaiduMap",
+            pageurl:"thirdapi/uexBaiduMap.html"
+        }, {
+            title : "uexCreditCardRec",
+            describe : '信用卡识别',
+            pagename : "uexCreditCardRec",
+            pageurl:"thirdapi/uexCreditCardRec.html"
+        }, {
+            title : "uexSina",
+            describe : '新浪微博',
+            pagename : "uexSina",
+            pageurl:"thirdapi/uexSina.html"
+        }, {
+            title : "uexTent",
+            describe : '腾讯微博',
+            pagename : "uexTent",
+            pageurl:"thirdapi/uexTent.html"
+        }, {
+            title : "uexWeiXin",
+            describe : '微信',
+            pagename : "uexWeiXin",
+            pageurl:"thirdapi/uexWeiXin.html"
+        }]);
+        lv.on('click', function(ele, context, obj, subobj) {
+            appcan.window.open(context.pagename,context.pageurl,10);
+        })
+
+
+
+</script>
+</html>

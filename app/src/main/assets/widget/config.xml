@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<widget appId="11359991" channelCode="000" height="480" pid="" sreensize="4.5" version="00.02.0014" viewmode="application" widgetId="" width="320"> 
+  <name>Hi AppCan</name>  
+  <description/>  
+  <author email=""></author>  
+  <icon src="icon.png"/>  
+  <license href=""/>  
+  <content encoding="utf-8" src="index.html"/>  
+  <updateurl/>  
+  <logserverip>192.168.1.181</logserverip>  
+  <showmyspace>false</showmyspace>  
+  <obfuscation>true</obfuscation>  
+  <bgcolor>#fefefe</bgcolor>  
+  <orientation>5</orientation>  
+  <debug>true</debug> 
+</widget>

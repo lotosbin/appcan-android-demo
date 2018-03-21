@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp c-wh-pLG" ontouchstart>
+        <div class="conbor">
+            <div class="consj">
+                <div class="ulev2 uin9">
+                    菜单
+                </div>
+                <div class="umh1"></div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn1">
+                        打开ActionSheet
+                    </div>
+                </div>
+                <div class="umh1"></div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn2">
+                        打开带有背景图片的ActionSheet
+                    </div>
+                </div>
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+            uexWidgetOne.onError = function(opCode, errorCode, errorDesc) {
+                alert(errorCode + ":" + errorDesc);
+            }
+        })
+        function onClickItem(dateType) {
+            alert("itemIndex:" + dateType);
+        }
+
+        function createActionSheet() {
+            uexActionSheet.onClickItem = onClickItem;
+            var x = 0;
+            var y = 0;
+            //没有用
+            var width = 0;
+            //如果传0，默认是屏幕宽度
+            var height = 0;
+            //没用的高度
+            //var JsonData = '{"actionSheet_style":{"frameBgColor":"#ffffff","frameBroundColor":"#ff0000","frameBgImg":"","btnSelectBgImg":"res://btn-act.png","btnUnSelectBgImg":"res://btn.png","cancelBtnSelectBgImg":"res://cancel-act.png","cancelBtnUnSelectBgImg":"res://cancel.png","textSize":"17","textColor":"#ffffff","actionSheetList":[{"name":"新浪微博"},{"name":"腾讯微博"},{"name":"分享"}]}}';
+            var JsonData = '{"actionSheet_style":{"frameBgColor":"#ffffff","frameBroundColor":"#00000000","frameBgImg":"","btnSelectBgImg":"res://btn-act.png","btnUnSelectBgImg":"res://btn.png","cancelBtnSelectBgImg":"res://cancel-act.png","cancelBtnUnSelectBgImg":"res://cancel.png","textSize":"17","textNColor":"#ffffff","textHColor":"#ffffff", "cancelTextNColor":"#ffffff","cancelTextHColor":"#ffffff", "actionSheetList":[{"name":"新浪微博"},{"name":"腾讯微博"},{"name":"分享"}]}}';
+            uexActionSheet.open(x, y, width, height, JsonData);
+        }
+
+        function createActionSheet2() {
+            uexActionSheet.onClickItem = onClickItem;
+            var x = 0;
+            var y = 0;
+            //没有用
+            var width = 0;
+            //如果传0，默认是屏幕宽度
+            var height = 0;
+            //没用的高度
+            //var JsonData = '{"actionSheet_style":{"frameBgColor":"#ffffff","frameBroundColor":"#ff0000","frameBgImg":"res://pano_u.jpg","btnSelectBgImg":"res://btn-act.png","btnUnSelectBgImg":"res://btn.png","cancelBtnSelectBgImg":"res://cancel-act.png","cancelBtnUnSelectBgImg":"res://cancel.png","textSize":"17","textColor":"#ffffff","actionSheetList":[{"name":"新浪微博"},{"name":"腾讯微博"},{"name":"分享"}]}}';
+
+            var JsonData = '{"actionSheet_style":{"frameBgColor":"","frameBroundColor":"#00000000","frameBgImg":"res://pano_u.jpg","btnSelectBgImg":"res://btn-act.png","btnUnSelectBgImg":"res://btn.png","cancelBtnSelectBgImg":"res://cancel-act.png","cancelBtnUnSelectBgImg":"res://cancel.png","textSize":"17", "textNColor":"#ffffff","textHColor":"#ffffff", "cancelTextNColor":"#ffffff","cancelTextHColor":"#ffffff", "actionSheetList":[{"name":"新浪微博"},{"name":"腾讯微博"},{"name":"分享"}]}}';
+            uexActionSheet.open(x, y, width, height, JsonData);
+        }
+
+
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                createActionSheet();
+                break
+            case "btn2":
+                createActionSheet2();
+                break;
+            }
+        })
+    </script>
+</html>

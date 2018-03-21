@@ -1,0 +1,216 @@
+<!doctype html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta charset="utf-8">
+        <title>http 跨域请求</title>
+
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+
+        <style type="text/css">
+            .task-list li {
+                border-bottom: 0.0625em solid #CCC;
+                line-height: 1.625em;;
+            }
+            .split-block {
+                border: 1px solid #ddd;
+                border-radius: 0.25px;
+                padding: 0.52em;
+                margin: 0.52em;
+            }
+
+            .out-box {
+                padding: 1.2em 1.2em;
+                background: #FFF;
+                font-size: 0.815em;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                line-height: 1.42857143;
+                color: #333;
+                background-color: #fff;
+            }
+            code {
+                padding: 0.125em 0.25em;
+                font-size: 90%;
+                color: #c7254e;
+                background-color: #f9f2f4;
+                border-radius: 4px;
+            }
+            pre {
+                display: block;
+                padding: 0.6em;
+                margin: 0 0 0.625em;
+                font-size: 0.8125em;
+                line-height: 1.42857143;
+                color: #333;
+                word-wrap: break-word;
+                background-color: #f5f5f5;
+                border: 1px solid #ccc;
+                border-radius: 0.25em;
+                overflow: auto;
+                word-wrap: normal;
+                white-space: pre;
+            }
+            p {
+                margin: 0 0 0.625em;
+            }
+            button, input[type=button] {
+                border: none;
+                outline: none;
+                margin: 0.25em 0.25em;
+            }
+            .close {
+                display: inline !important;
+                background: none;
+                color: #333;
+            }
+            .form-group {
+                margin-bottom: 0.937em;
+            }
+            .btn {
+                display: inline !important;
+            }
+            .sel select {
+                left: 0;
+                top: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <div class="out-box">
+            <div class="">
+                <div class="">
+                    <a id="explain"></a>
+                    <p class="">
+                        实例说明：
+                    </p>
+                    <div class="">
+                        <p>
+                            该实例使用appcan http请求插件实现的一个获取网络任意一个http请求并输出结果
+                        </p>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-group">
+                        <label for="rc4-key" class="">地址：</label>
+                        <div class="">
+                            <div class="btn-group">
+                                <div class="ub ub-ac uba bc-border ">
+                                    <div class="uinput ub ub-f1">
+                                        <input type="text" class=" url-address" value="http://www.kedo.gov.cn/mobile/index/GetIndexInfo.jsp?jsoncallback=?&type=1" placeholder="">
+                                    </div>
+                                </div>
+                                <span style="margin:-0.23em;">
+                                    <input type="button" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1 get-content" value="获取">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="">
+                            <div class="ub ub-ac uba bc-border ">
+                                <div class="uinput ub ub-f1">
+                                    <textarea class="uhide page-content" style="height:300px"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div>
+                                预览：
+                            </div>
+                            <div class="preview"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <a id="code1"></a>
+                    <p class="">
+                        代码实现(推荐)：
+                    </p>
+                    <div class="">
+                        <pre>
+appcan.ready(function(){
+    //异步请求
+    appcan.use('request',function($,request){
+        $('.get-content').tap(function(){
+                 var url = $('.url-address').val();
+                 alert(url);
+                 request.ajax({
+                    url:url,
+                    dataType:"text",
+                    type:"GET",
+                    success:function(dt){
+                        $('.preview').html(dt);
+                        $(".page-content").val(dt);
+                    }
+                });
+        });
+    });
+});
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="">
+                    <a id="code2"></a>
+                    <p class="">
+                        代码实现二：
+                    </p>
+                    <div class="">
+                        <pre>
+   window.uexOnload = function(){
+       var request = appcan.request;
+       $('.get-content').tap(function(){
+             var url = $('.url-address').val();
+                 request.ajax({
+                    url:url,
+                    dataType:"text",
+                    type:"GET",
+                    success:function(dt){
+                        $('.preview').html(dt);
+                        $(".page-content").val(dt);
+                    }
+                });
+        });
+   };               
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script type="text/javascript">
+            appcan.button(".btn", "ani-act", function() {
+
+            });
+            appcan.ready(function() {
+                //异步请求
+                appcan.use('request', function($, request) {
+                    $('.get-content').tap(function() {
+                        var url = $('.url-address').val();
+                        request.ajax({
+                            url : url,
+                            type : "GET",
+                            success : function(dt) {
+                                $('.preview').html(JSON.stringify(dt));
+                                //$(".page-content").val(dt);
+                            }
+                        });
+                    });
+                });
+            });
+
+        </script>
+    </body>
+</html>

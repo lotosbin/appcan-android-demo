@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp c-wh-pLG" ontouchstart>
+        <div class="conbor uof">
+            <div class="consj" id="topDiv">
+                <div class="ulev2 uin9">
+                    路径规划功能
+                </div>
+                <div class="uinn">
+                    <div class="select uba bc-border bc-text">
+                        <div class="text">
+                            步行
+                        </div>
+                        <div class="icon"></div>
+                        <select selectedindex="0">
+                            <option value="0">驾车</option>
+                            <option value="1">公交</option>
+                            <option value="2" selected>步行</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="umh1" id="heights"></div>
+                <div class="ub ub-hor" id="height">
+                    <div class="uin ub ub-f1 ub-con">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc ub-f1 ub-con" id="btn1">
+                            打开
+                        </div>
+                    </div>
+                    <div class="uin ub ub-f1 ub-con">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc ub-f1 ub-con" id="btn2">
+                            显示路线
+                        </div>
+                    </div>
+                </div>
+                <div class="umh1" id="heights"></div>
+                <div class="ub ub-hor">
+
+                    <div class="uin ub ub-f1 ub-con">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc ub-f1 ub-con" id="btn3">
+                            清除路线
+                        </div>
+                    </div>
+                    <div class="uin ub ub-f1 ub-con">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc ub-f1 ub-con" id="btn4">
+                            关闭
+                        </div>
+                    </div>
+                </div>
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function(){
+        appcan.initBounce();
+        uexWidgetOne.cbError = function(opid,type,data){
+        alert(data);
+        }
+        //apiKey授权失败，回调函数
+        uexBaiduMap.onPermissionDenied = function(){
+        alert(onPermissionDenied);
+        }
+        uexBaiduMap.onNetworkError = function(){
+        }
+
+        uexBaiduMap.cbShowRoutePlan = function(mid,type,data){
+        var obj = eval('('+data+')');
+        // alert("id:="+obj.id+"\nresult:="+obj.result);
+        }
+        })
+
+        var type = '0';
+        appcan.select(".select",function(ele,value){
+        type = value;
+        });
+
+        var isSetLoc = 0;
+        function clean(){
+        isSetLoc = 0;
+        uexBaiduMap.clean();
+        }
+        function openmap(){
+        var divTop = $('#topDiv')[0].offsetTop + $('#topDiv')[0].offsetHeight;
+        var btheight=$('#height')[0].offsetHeight+$('#heights')[0].offsetHeight;
+        var s = window.getComputedStyle(document.body,null);
+        var w  = parseInt(parseInt(s.width)-20);
+       // var w = screen.availWidth-20;
+        //var h = screen.availHeight;
+        var h  = parseInt(s.height);
+        isSetLoc = 0;
+        uexBaiduMap.open('6643147DF56BD40F6140AB3ABA5A3FFBE12C439F',10,divTop+btheight+10,w,h-divTop+btheight,'116.401','39.925');
+        }
+
+        function showRoutePlan(){
+        var jssonstr = '{"id":"rp345","type":"'+type+'","start":{"city":"北京","name":"天安门"},"end":{"city":"北京","name":"百度大厦","longitude":"116.307827","latitude":"40.056957"}}';
+        uexBaiduMap.showRoutePlan(jssonstr);
+        }
+        function cleanRoutePlan(){
+        uexBaiduMap.clearRoutePlan();
+        }
+        appcan.button(".btn", "ani-act", function() {
+        switch(this.id) {
+          case "btn1":
+            openmap();
+            break;
+        case "btn2":
+            showRoutePlan();
+            break;
+        case "btn3":
+            cleanRoutePlan();
+            break;
+        case "btn4":
+            clean();
+            break;
+        }
+        })
+    </script>
+</html>

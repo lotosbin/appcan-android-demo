@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div id="listview" class="ubt sc-border sc-bg">
+
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.listview.js"></script>
+    </body>
+    <script>
+        
+        appcan.ready(function() {
+            appcan.initBounce();
+        })
+
+
+        var lv = appcan.listview({
+            selector : "#listview",
+            type : "thinLine",
+            hasIcon : true,
+            hasAngle : false,
+            hasSubTitle : true,
+            multiLine : 1
+        });
+        lv.set([{
+            title : "添加  CSS 类 [icon-add]",
+            icon:"../css/icons/icon-add-act.png",
+        },{
+            title : "添加用户  CSS 类 [icon-adduser]",
+            icon:"../css/icons/icon-adduser-act.png",
+        },{
+            title : "返回  CSS 类 [icon-back]",
+            icon:"../css/icons/icon-back-act.png",
+        },{
+            title : "日历  CSS 类 [icon-cal]",
+            icon:"../css/icons/icon-cal-act.png",
+        },{
+            title : "电话  CSS 类 [icon-back]",
+            icon:"../css/icons/icon-call-act.png",
+        },{
+            title : "图表  CSS 类 [icon-chart]",
+            icon:"../css/icons/icon-chart-act.png",
+        },{
+            title : "关闭  CSS 类 [icon-close]",
+            icon:"../css/icons/icon-close-act.png",
+        },{
+            title : "磁盘  CSS 类 [icon-disk]",
+            icon:"../css/icons/icon-disk-act.png",
+        },{
+            title : "下载  CSS 类 [icon-download]",
+            icon:"../css/icons/icon-download-act.png",
+        },{
+            title : "编辑  CSS 类 [icon-edit]",
+            icon:"../css/icons/icon-edit-act.png",
+        },{
+            title : "退出  CSS 类 [icon-exit]",
+            icon:"../css/icons/icon-exit-act.png",
+        },{
+            title : "过滤  CSS 类 [icon-filter]",
+            icon:"../css/icons/icon-filter-act.png",
+        },{
+            title : "转发  CSS 类 [icon-forward]",
+            icon:"../css/icons/icon-forward-act.png",
+        },{
+            title : "首页  CSS 类 [icon-home]",
+            icon:"../css/icons/icon-home-act.png",
+        },{
+            title : "导航  CSS 类 [icon-map]",
+            icon:"../css/icons/icon-map-act.png",
+        },{
+            title : "菜单  CSS 类 [icon-menu]",
+            icon:"../css/icons/icon-menu-act.png",
+        },{
+            title : "更多  CSS 类 [icon-more]",
+            icon:"../css/icons/icon-more-act.png",
+        },{
+            title : "确认  CSS 类 [icon-ok]",
+            icon:"../css/icons/icon-ok-act.png",
+        },{
+            title : "刷新  CSS 类 [icon-refresh]",
+            icon:"../css/icons/icon-refresh-act.png",
+        },{
+            title : "搜索  CSS 类 [icon-search]",
+            icon:"../css/icons/icon-search-act.png",
+        },{
+            title : "设置  CSS 类 [icon-setting]",
+            icon:"../css/icons/icon-setting-act.png",
+        },{
+            title : "分享  CSS 类 [icon-share]",
+            icon:"../css/icons/icon-share-act.png",
+        },{
+            title : "子菜单  CSS 类 [icon-submenu]",
+            icon:"../css/icons/icon-submenu-act.png",
+        },{
+            title : "用户  CSS 类 [icon-user]",
+            icon:"../css/icons/icon-user-act.png",
+        },{
+            title : "警告  CSS 类 [icon-warn]",
+            icon:"../css/icons/icon-warn-act.png",
+        }]);
+
+    </script>
+</html>

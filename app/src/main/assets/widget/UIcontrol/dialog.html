@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">消息框(dialog)</h1>
+                <div class="nav-btn nav-bt" id="nav-right">
+                    <!--按钮开始-->
+
+                    <!--按钮结束-->
+                </div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+                <div class="">
+                    <br>
+                    <div class="btn ub ub-ac bc-text-head ub-pc bc-btn "  id="btn1">
+                        提示对话框
+                    </div>
+                    <br>
+                    <div class="btn ub ub-ac bc-text-head ub-pc bc-btn "  id="btn2">
+                        确认对话框
+                    </div>
+                    <br>
+                    <div class="btn ub ub-ac bc-text-head ub-pc bc-btn "  id="btn3">
+                        确认对话框-三按钮
+                    </div>
+                    <br>
+                    <div class="btn ub ub-ac bc-text-head ub-pc bc-btn "  id="btn4">
+                        输入对话框
+                    </div>
+                    <br>
+                    <div class="btn ub ub-ac bc-text-head ub-pc bc-btn "  id="btn5">
+                        等待对话框
+                    </div>
+                </div>
+                <div class="ub ub-ac ub-pc uba bc-border umh4" id="info"></div>
+            </div>
+            <!--content结束-->
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        
+
+        appcan.ready(function() {
+
+        });
+        appcan.button(".nav-btn", "btn-act", function() {
+            appcan.window.close(-1);
+        })
+
+        appcan.button(".btn", "ani-act", function() {
+            console.log(this.id);
+            switch(this.id) {
+            case 'btn1':
+                appcan.window.alert({
+                    title : "异常",
+                    content : "您目前没有可用网络，请检查网络情况:(",
+                    buttons : '确定',
+                    callback : function(err, data, dataType, optId) {
+                        $("#info").html("您按下了按钮  [确定]");
+                    }
+                });
+                break;
+            case 'btn2':
+                appcan.window.alert({
+                    title : "提示",
+                    content : "您是否要支付当前订单?",
+                    buttons : ['确定', '取消'],
+                    callback : function(err, data, dataType, optId) {
+                        $("#info").html("您按下了按钮 ["+['确定', '取消'][data]+"]");
+                    }
+                });
+                break;
+            case 'btn3':
+                appcan.window.alert({
+                    title : "提示",
+                    content : "您是否要支付当前订单?",
+                    buttons : ['同意', '拒绝', '稍后再说'],
+                    callback : function(err, data, dataType, optId) {
+                        $("#info").html("您按下了按钮["+['同意', '拒绝', '稍后再说'][data]+"]");
+                    }
+                });
+                break;
+            case 'btn4':
+                appcan.window.prompt({
+                    title : "提示",
+                    content : "请输入您的手机号",
+                    buttons : ['提交', '稍后再说'],
+                    defaultValue:"13",
+                    callback : function(err, data, dataType, optId) {
+                        $("#info").html("返回的数据 "+data.value+" ["+['提交', '稍后再说'][data.num]+"]");
+                    }
+                });
+                break;
+            case 'btn5':
+                appcan.window.openToast("正在校验中,请稍后", 2000, 5);
+                break;
+            }
+        })
+    </script>
+</html>

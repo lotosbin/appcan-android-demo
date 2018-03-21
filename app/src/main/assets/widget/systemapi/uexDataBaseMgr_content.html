@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/project/new.css">
+</head>
+<body class="um-vp c-wh-pLG sc-bg" ontouchstart>
+<div class="conbor uof">
+    <div class="consj"> 
+        <div class="ulev2 uin9">数据库</div>
+        <div class="uin8">打开数据库</div>
+        <div class="c-wh  ubt ubb bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="数据库名称" type="text"  class="ub-f1 font-c" id="name" value="uexDB">
+        </div>
+        
+        <div class="uin8">创建表</div>
+        <div class="c-wh ubb ubt bc-border  uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <textarea placeholder="hello,appcan" type="text" class="ub-f1 font-c"  id="createTable">CREATE TABLE testTable (_id  INTEGER PRIMARY KEY,name TEXT)</textarea>
+            <div class="umw1-7"></div>
+        </div>
+        
+        <div class="uin8">插入数据</div>
+        <div class="c-wh ubb ubt bc-border  uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <textarea placeholder="hello,appcan" type="text" class="ub-f1 font-c"  id="insertData">INSERT INTO testTable (name) VALUES ('这是测试')</textarea>
+            <div class="umw1-7"></div>
+        </div>
+        
+        <div class="uin8">更改数据</div>
+        <div class="c-wh ubb ubt bc-border  uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <textarea placeholder="hello,appcan" type="text" class="ub-f1 font-c"  id="updateData">UPDATE testTable SET name='这是更改' WHERE _id = 1</textarea>
+            <div class="umw1-7"></div>
+        </div>
+        
+        <div class="uin8">查询数据</div>
+        <div class="c-wh ubb ubt bc-border  uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <textarea placeholder="hello,appcan" type="text" class="ub-f1 font-c"  id="selectData">SELECT * FROM testTable</textarea>
+            <div class="umw1-7"></div>
+        </div>
+        
+        <div class="uin8">事务</div>
+        <div class="c-wh ubb ubt bc-border  uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <textarea placeholder="hello,appcan" type="text" class="ub-f1 font-c"  id="transactiontData">DELETE FROM testTable WHERE _id = 1</textarea>
+            <div class="umw1-7"></div>
+        </div>
+        
+        <div class="uin8">删除表</div>
+        <div class="c-wh ubb ubt bc-border  uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <textarea placeholder="hello,appcan" type="text" class="ub-f1 font-c"  id="deleteTable">DROP TABLE testTable</textarea>
+            <div class="umw1-7"></div>
+        </div>
+        
+        <div class="umh1"></div>
+        <div class="ub  ub-pc">
+            <div class="uin  ub-f1 ">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn1">打开数据库</div>
+            </div>
+            <div class="uin  ub-f1 ">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn2">关闭数据库</div>
+            </div>
+        </div>
+        <div class="umh1"></div>
+        <div class="ub  ub-pc">
+            <div class="uin ub-f1 ">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn3">创建表</div>
+            </div>
+            <div class="uin  ub-f1 ">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn4">插入数据</div>
+            </div>
+            <div class="uin ub-f1 ">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn5">更改数据</div>
+            </div>
+        </div>
+        <div class="umh1"></div>
+        <div class="ub  ub-pc">
+            <div class="uin  ub-f1 ">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn6">查询数据</div>
+            </div>
+            <div class="uin ub-f1 ">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn7">事务</div>
+            </div>
+            <div class="uin  ub-f1 ">
+                <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn8">删除表</div>
+            </div>
+        </div>
+        <div class="umh1"></div>
+    </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>	
+</body>
+<script>
+
+appcan.ready(function(){
+    appcan.initBounce();
+})
+var cText = 0;
+var cJson = 1;
+var cInt = 2;
+
+    var dbName; 
+    function createDB(){
+        dbName = $('#name').val();
+        uexDataBaseMgr.openDataBase(dbName,1);
+        uexDataBaseMgr.cbOpenDataBase = createDBCallBack;
+    }
+
+    function createTable(){
+        //var sql = "CREATE TABLE testTable (_id  INTEGER PRIMARY KEY,name TEXT)";
+
+        uexDataBaseMgr.executeSql(dbName,1,$('#createTable').val());
+        uexDataBaseMgr.cbExecuteSql = createTableCallBack;
+    }
+    function insertData(){
+    //  var sql = "INSERT INTO testTable (name) VALUES ('this is test')";
+        uexDataBaseMgr.executeSql(dbName,1,$('#insertData').val());
+        uexDataBaseMgr.cbExecuteSql = insertDataCallBack;
+    }
+    function selectData(){
+    //  var sql = "SELECT * FROM testTable";
+        uexDataBaseMgr.selectSql(dbName,1,$('#selectData').val());
+        uexDataBaseMgr.cbSelectSql = selectDataCallBack;
+    }
+    
+    function updateData(){
+    //  var sql = UPDATE testTable SET name='这是更改' WHERE _id = 1;
+        uexDataBaseMgr.executeSql(dbName,1,$('#updateData').val());
+        uexDataBaseMgr.cbSelectSql = updateDataCallBack;
+    }
+    
+    function transaction(){
+        uexDataBaseMgr.transaction(dbName,1,inFunc);
+        uexDataBaseMgr.cbTransaction = transactionCallBack;
+        //uexDataBaseMgr.beginTransaction(1);
+        //uexDataBaseMgr.cbBeginTransaction = beginTransactionCallBack;
+        //drop table testTable是删除表；DELETE FROM testTable WHERE _id = 1删除第一项
+    }
+
+    function deleteTable(){
+        uexDataBaseMgr.executeSql(dbName,1,$('#deleteTable').val());
+        uexDataBaseMgr.cbExecuteSql = deleteTableCallBack;
+    }
+
+
+
+    function createDBCallBack(opid,type,data){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+              alert("uex.cJson");
+                break;
+            case cInt:
+            if(opid == 1 &&type == 2&&data == 0){
+                alert("数据库打开成功！");
+            }else{
+                 alert("数据库打开失败！");
+            }
+            break;
+          default:
+              alert("error"); 
+      }
+        
+    };
+    function insertDataCallBack(opid,type,data){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+              alert("uex.cJson");
+                break;
+            case cInt:
+            if(opid == 1&&type == 2 &&data == 0){
+                alert("数据插入成功！");
+            }else{
+                 alert("数据插入失败！");
+            }
+            break;
+          default:
+              alert("error");  
+      }
+    };
+
+
+    function createTableCallBack(opid,type,data){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+              alert("uex.cJson");
+                break;
+            case cInt:
+            if(opid == 1&&type == 2 &&data == 0){
+                alert("表创建成功！");
+            }else{
+                 alert("表创建失败！");
+            }
+            break;
+          default:
+              alert("error");   
+      }
+            
+    };
+    function selectDataCallBack(opid,type,value){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+            if(opid == 1 && type == 1){
+                var jsonList=eval("("+value+")");
+              if(jsonList.length == 0){
+                  alert("无数据");
+              }
+              for(var i=0;i<jsonList.length;i++){
+
+ 　　　　       for(var key in jsonList[i]){
+         　　 alert("key："+key+",value："+jsonList[i][key]); 
+                }
+    
+            } 
+            }else{
+                alert("查询失败！");
+            }
+            break;
+          case cInt:
+            alert("uex.cInt"); 
+            break;
+           
+          default:
+              alert("error");  
+
+      }
+
+    };
+
+    function updateDataCallBack(opid,type,data){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+              alert("uex.cJson");
+                break;
+            case cInt:
+            if(opid == 1&&type == 2 &&data == 0){
+                alert("数据更改成功！");
+            }else{
+                 alert("数据更改失败！");
+            }
+            break;
+          default:
+              alert("error");  
+      }
+    };
+    
+    function inFunc(){
+        uexDataBaseMgr.executeSql(dbName,1,$('#transactiontData').val());
+        uexDataBaseMgr.cbExecuteSql = null;
+    }
+
+    function transactionCallBack(opid,type,data){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+              alert("uex.cJson");
+                break;
+            case cInt:
+            if(opid == 1&&type == 2  &&data == 0){
+                alert("事务提交成功！");
+            }else{
+                 alert("事务提交失败！");
+            } 
+            break;
+          default:
+              alert("error");  
+      }
+    };
+    function closeDataBase(){
+        uexDataBaseMgr.closeDataBase(dbName,1);
+        uexDataBaseMgr.cbCloseDataBase = closeDataBaseCallBack;
+    }
+    function closeDataBaseCallBack(opid,type,data){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+              alert("uex.cJson");
+                break;
+            case cInt:
+            if(opid == 1 &&type == 2&&data == 0){
+                alert("数据库关闭成功！");
+            }else{
+                 alert("数据库关闭失败！");
+            }
+            break;
+          default:
+              alert("error");
+      }
+    };
+    function deleteTableCallBack(opid,type,data){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+              alert("uex.cJson");
+                break;
+            case cInt:
+            if(opid == 1 &&type == 2&&data == 0){
+                alert("删除表成功！");
+            }else{
+                 alert("删除表失败！");
+            }
+            break;
+          default:
+              alert("error");
+      }
+    };
+    appcan.button(".btn", "ani-act", function(){
+        switch(this.id) {
+        case "btn1":
+            createDB();
+            break;
+        case "btn2":
+            closeDataBase();
+            break;
+        case "btn3":
+            createTable();
+            break;
+        case "btn4":
+            insertData();
+            break;
+        case "btn5":
+            updateData();
+            break;
+        case "btn6":
+            selectData();
+            break;
+        case "btn7":
+            transaction();
+            break;
+        case "btn8":
+            deleteTable();
+            break;
+        }
+    })
+</script>
+</html>

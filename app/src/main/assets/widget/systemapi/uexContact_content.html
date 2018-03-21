@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/project/new.css">
+</head>
+<body class="um-vp c-wh-pLG sc-bg" ontouchstart>
+<div class="conbor uof">
+    <div class="consj"> 
+        <div class="ulev2 uin9">联系人</div>
+        <div class="uin8">打开联系人</div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn1">打开联系人</div>
+        </div>
+        <div class="umh1"></div>
+        <div class="uin10">选择的联系人信息为：</div> 
+        <div class="ubb ubt bc-border bc-bg tcxx breakword" id="data"></div>  
+        <div class="uin8">添加联系人</div>  
+        <div class="c-wh  ubt bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="" type="text"  class="ub-f1 font-c" id="addName" value="张三">
+        </div>
+        <div class="c-wh ubt bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="" type="text"  class="ub-f1 font-c" id="addTel" value="15863254568">
+        </div>
+        <div class="c-wh ubb ubt bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="" type="text"  class="ub-f1 font-c" id="addMail" value="123@163.com">
+        </div>
+        <div class="umh1"></div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn2">添加联系人</div>
+        </div>
+        
+        <div class="uin8">查找联系人</div>  
+        
+        <div class="c-wh ubb ubt bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="" type="text"  class="ub-f1 font-c" id="serchName" value="张三">
+        </div>
+        <div class="umh1"></div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn3">查找联系人</div>
+        </div>
+        <div class="umh1"></div>
+        <div class="uin10">查找联系人的信息为：</div>
+        <div class="ubb ubt  bc-border bc-bg  tcxx breakword" id="resData"></div> 
+        <div class="uin8">修改联系人</div>  
+        <div class="c-wh ubt bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="" type="text"  class="ub-f1 font-c" id="modifyName" value="张三">
+        </div>
+        <div class="c-wh ubt bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="联系人电话" type="text"  class="ub-f1 font-c" id="modifyTel" value="15863254568">
+        </div>   
+        <div class="c-wh ubb ubt bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="联系人邮箱" type="text"  class="ub-f1 font-c" id="modifyMail" value="123@163.com">
+        </div> 
+        <div class="umh1"></div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn4">修改联系人</div>
+        </div>
+        <div class="umh1"></div>
+        <div class="uin8">删除联系人</div>          
+        <div class="c-wh ubb ubt bc-border uinput ub ub-f1">
+            <div class="umw1-7"></div>
+            <input placeholder="" type="text"  class="ub-f1 font-c" id="delName" value="张三">
+        </div>
+        <div class="umh1"></div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn5">删除联系人</div>
+        </div> 
+        <div class="umh1"></div>
+        <div class="uin8">打开联系人，多选</div>  
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn6">打开联系人，多选</div>
+        </div>
+        <div class="umh1"></div>
+        <div class="uinn">选择的联系人信息为：</div> 
+        <div class="ubb ubt bc-border bc-bg   tcxx breakword" id="multidata"></div> 
+        <div class="umh1"></div>   
+        
+   </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>	
+</body>
+<script>
+
+var cText = 0;
+var cJson = 1;
+var cInt = 2;
+appcan.ready(function(){
+	appcan.initBounce();
+	uexContact.cbOpen = function(opCode, dataType, data) {
+            switch (dataType) {
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                var obj = eval('(' + data + ')');
+                $('#data')[0].innerHTML = "姓名：" + obj.name
+                        + "<br>电话：" + obj.num + "<br>邮箱：" + obj.email;
+                break;
+            case cInt:
+                alert("uex.cInt");
+                break;
+            default:
+                alert("error");
+
+            }
+        }
+        uexContact.cbMultiOpen = function(opCode, dataType, data) {
+            
+            switch (dataType) {
+            case cText:
+                break;
+            case cJson:
+                var array = eval('(' + data + ')');
+                var str = "";
+                for ( var i = 0; i < array.length; i++) {
+                    str = str + "姓名：" + array[i].name + "<br>电话："
+                            + array[i].num + "<br>邮箱：" + array[i].email
+                            + "<br>";
+                }
+                $('#multidata')[0].innerHTML = str;
+                break;
+            case cInt:
+                break;
+            default:
+                alert('error');
+                break;
+            }
+        };
+
+        uexContact.cbSearchItem = function(opCode, dataType, data) {
+        var array = eval('(' + data + ')');
+                var str = "";
+                for ( var i = 0; i < array.length; i++) {
+                    str = str + "姓名：" + array[i].name + "<br>电话："
+                            + array[i].num + "<br>邮箱：" + array[i].email
+                            + "<br>";
+                }
+            
+            $('#resData')[0].innerHTML = str;
+        }
+        uexContact.cbAddItem = function(opCode, dataType, data) {
+            if (data == 0) {
+                alert("添加成功");
+            } else {
+                alert("添加失败");
+            }
+        }
+        uexContact.cbModifyItem = function(opCode, dataType, data) {
+            if (data == 0) {
+                alert("修改成功");
+            } else {
+                alert("修改失败");
+            }
+        }
+        uexContact.cbDeleteItem = function(opCode, dataType, data) {
+            if (data == 0) {
+                alert("删除成功");
+            } else {
+                alert("删除失败");
+            }
+
+        }
+})
+appcan.button(".btn", "ani-act", function(){
+            switch(this.id) {
+            case "btn1":
+                uexContact.open();
+                break;
+            case "btn2":
+                uexContact.addItem($('#addName').val(),$('#addTel').val(),$('#addMail').val());
+                break;
+            case "btn3":
+                uexContact.searchItem($('#serchName').val());
+                break;
+            case "btn4":
+                uexContact.modifyItem($('#modifyName').val(),$('#modifyTel').val(),$('#modifyMail').val());
+                break;
+            case "btn5":
+                uexContact.deleteItem($('#delName').val());
+                break;
+            case "btn6":
+                uexContact.multiOpen();
+                break;
+            }
+}) 
+</script>
+</html>

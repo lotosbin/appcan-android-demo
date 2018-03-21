@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp c-wh-pLG" ontouchstart>
+        <div class="conbor uof">
+            <div class="consj" id="topDiv">
+                <div class="ulev2 uin9">
+                    覆盖物功能
+                </div>
+                <div class="umh1" id="heights"></div>
+                <div class="ub ub-hor ub-pc" id="height">
+                    <div class="uin  ub-f1 ">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn1">
+                            打开
+                        </div>
+                    </div>
+                    <div class="uin  ub-f1 ">
+                        <div class="ub btn bc-text-head bc-btn ub-ac ub-pc " id="btn2">
+                            关闭
+                        </div>
+                    </div>
+                </div>
+                <div class="uinn">
+                    <div class="ub">
+                        <div class="uinn">
+                            添加覆盖物:
+                        </div>
+                        <div class="select uba bc-border bc-text ub-f1">
+                            <div class="text">
+                                请选择
+                            </div>
+                            <div class="icon"></div>
+                            <select selectedindex="0">
+                                <option value="0">请选择</option>
+                                <option value="1">线型</option>
+                                <option value="2">圆型</option>
+                                <option value="3">多边型</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="uinn">
+                    <div class="ub">
+                        <div class="uinn">
+                            清除覆盖物:
+                        </div>
+                        <div class="select uba bc-border bc-text ub-f1 select1">
+                            <div class="text">
+                                请选择
+                            </div>
+                            <div class="icon"></div>
+                            <select selectedindex="0">
+                                <option value="0">请选择</option>
+                                <option value="150">线型</option>
+                                <option value="151">圆型</option>
+                                <option value="152">多边型</option>
+                                <option value="4">所有几何</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="umh1" id="heights"></div>
+
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+            uexWidgetOne.cbError = function(opid, type, data) {
+                alert(data);
+            }
+        })
+        appcan.select(".select", function(ele, value) {
+            switch(value) {
+            case '1':
+                addLineOverLayer();
+                break;
+            case '2':
+                addCircleOverLayer();
+                break;
+            case '3':
+                addMultiOverLayer();
+                break;
+            default:
+                break;
+            };
+        });
+        appcan.select(".select1", function(ele, value) {
+            switch(value) {
+            case '150':
+            clearOverLayer('150');
+            break;
+            case '151':
+            clearOverLayer('151');
+            break;
+            case '152':
+                clearOverLayer('152');
+                break;
+            case '4':
+                clearOverLayers();
+                break;
+            default:
+                break;
+            };
+        });
+
+        var isSetLoc = 0;
+        function clean() {
+            isSetLoc = 0;
+            uexBaiduMap.clean();
+        }
+
+        function openmap() {
+            var divTop = $('#topDiv')[0].offsetTop + $('#topDiv')[0].offsetHeight;
+            var btheight = $('#height')[0].offsetHeight+$('#heights')[0].offsetHeight;
+            var s = window.getComputedStyle(document.body, null);
+            var w  = parseInt(parseInt(s.width)-20);
+            //var w = screen.availWidth - 20;
+            //var h = screen.availHeight;
+            var h  = parseInt(s.height);
+            isSetLoc = 0;
+            uexBaiduMap.open('6643147DF56BD40F6140AB3ABA5A3FFBE12C439F', 10, divTop + btheight + 10, w, h - divTop + btheight, '116.401', '39.925');
+        }
+
+        function addLineOverLayer() {
+            var jssonstr = '{"id":"150","fillColor":"#990033","strokeColor":"#990033","lineWidth":"2.0","property":[{"longitude":"116.232323","latitude":"39.021514"},{"longitude":"118.345","latitude":"40.567"}]}';
+            //,{"longitude":"117","latitude":"38"},{"longitude":"120","latitude":"39"}
+
+            uexBaiduMap.setZoomLevel("16");
+            uexBaiduMap.setCenter("116.232323", "39.021514");
+            uexBaiduMap.addLineOverLayer(jssonstr);
+        }
+
+        function addCircleOverLayer() {
+            var jssonstr = '{"id":"151","longitude":"116.404","latitude":"39.915","radius":"500","fillColor":"#4169E1","strokeColor":"#990033","lineWidth":"2.0"}';
+
+            uexBaiduMap.setZoomLevel("16");
+            uexBaiduMap.setCenter("116.404", "39.915");
+            uexBaiduMap.addCircleOverLayer(jssonstr);
+        }
+
+        function addMultiOverLayer() {
+            var jssonstr = '{"id":"152","fillColor":"#990033","strokeColor":"#990033","lineWidth":"2.0","property":[{"longitude":"116","latitude":"39"},{"longitude":"115","latitude":"38"},{"longitude":"117","latitude":"38"},{"longitude":"117","latitude":"39"}]}';
+
+            uexBaiduMap.setZoomLevel("10");
+            uexBaiduMap.setCenter("116", "39");
+            uexBaiduMap.addPolygonOverLayer(jssonstr);
+        }
+
+        function clearOverLayer(type){
+            var idarr = [type];
+            uexBaiduMap.clearOverLayers(idarr);
+        }
+
+        function clearOverLayers() {
+            uexBaiduMap.clearOverLayers();
+        }
+
+
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                openmap();
+                break;
+            case "btn2":
+                clean();
+                break;
+            }
+        })
+    </script>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp c-wh-pLG sc-bg" ontouchstart>
+        <div class="conbor">
+            <div class="consj">
+                <div class="ulev2 uin9">
+                    地理位置
+                </div>
+                <div class="uin8">
+                    打开定位
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn1" >
+                        打开定位
+                    </div>
+                </div>
+                <div class="umh1"></div>
+                <div class="uinn">
+                    当前的经纬度值为：
+                </div>
+                <div class="ubb ubt bc-border bc-bg tcxx breakword" id="location"></div>
+                <input type="hidden" id="longitude">
+                <input type="hidden" id="latitude">
+                <div class="uin8">
+                    获取当前地址
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" id="btn2"  >
+                        获取当前地址值
+                    </div>
+                </div>
+                <div class="umh1"></div>
+                <div class="uin10">
+                    获取当前地址值为：
+                </div>
+                <div class="ubb ubt bc-border bc-bg tcxx breakword" id="adre"></div>
+
+                <div class="uin8">
+                    关闭定位
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn3" >
+                        关闭
+                    </div>
+                </div>
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        var cText = 0;
+        var cJson = 1;
+        var cInt = 2;
+        appcan.ready(function() {
+            appcan.initBounce();
+            uexLocation.onChange = locationCallback;
+            uexLocation.cbGetAddress = LocationSuccess;
+            uexLocation.cbGetCity = citySuccess;
+            uexWidgetOne.cbError = function(opCode, errorCode, errorInfo) {
+                alert("errorCode:" + errorCode + "\nerrorInfo:" + errorInfo);
+            }
+        })
+        //获取当前经纬度
+        function locationFun() {
+            //0最准确，1十米以内 ，2百米以内，3千米内，4三千米以内
+            var locLevel = 0;
+            //distanceFilter 更新距离，如果设置为 100m,则100m以内不回调定位
+            var distanceFilter = 10;
+            //以上两参数仅ios支持
+            //alert("aaa");
+            uexLocation.openLocation(locLevel, distanceFilter);
+            //alert("bbb");
+        }
+
+        //启动定位功能，返回的通知函数 的回调函数
+        function locationCallback(lat, log) {
+            $('#longitude').val(log);
+            $('#latitude').val(lat);
+            $('#location')[0].innerHTML = "经度:" + log + " ,纬度:" + lat;
+        }
+
+        //根据经纬度获取具体地址
+        function LocationSuccess(opCode, dataType, data) {
+            $('#adre')[0].innerHTML = data;
+        }
+
+        function citySuccess(opCode, dataType, data) {
+            $('#adre')[0].innerHTML = data;
+        }
+
+        function posClose() {
+            uexLocation.closeLocation();
+            alert("定位已关闭");
+        }
+
+
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                locationFun();
+                break;
+            case "btn2":
+                uexLocation.getAddress($('#latitude').val(),$('#longitude').val(),0);
+                break;
+            case "btn3":
+                posClose();
+                break;     
+            }
+        })
+    </script>
+</html>

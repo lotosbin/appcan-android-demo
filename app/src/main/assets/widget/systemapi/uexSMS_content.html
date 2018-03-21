@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp c-wh-pLG sc-bg" ontouchstart>
+        <div class="conbor uof">
+            <div class="consj">
+                <div class="ulev2 uin9">
+                    短信
+                </div>
+                <div class="uin8">
+                    输入电话号码：
+                </div>
+                <div class="c-wh  ubt ubb bc-border uinput ub ub-f1">
+                    <div class="umw1-7"></div>
+                    <input placeholder="请输入手机号" type="text"  class="ub-f1 font-c" id="telnm" value="10086">
+                </div>
+                <div class="uin8">
+                                                      输入短信内容：
+                </div>
+                <div class="c-wh ubb ubt bc-border  uinput ub ub-f1">
+                    <div class="umw1-7"></div>
+                    <textarea type="text" class="ub-f1 font-c"  id="uexSMS">欢迎体验AppCanAPI功能</textarea>
+                    <div class="umw1-7"></div>
+                </div>
+                <div class="uin8">
+                                                                 打开短信界面
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn1">
+                                                                     打开短信界面
+                    </div>
+                </div>
+                <div class="uin8">
+                    发送短信
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn2">
+                                                             发送短信
+                    </div>
+                </div>
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        var cText = 0;
+        var cJson = 1;
+        var cInt = 2;
+        appcan.ready(function() {
+            appcan.initBounce();
+            uexSMS.cbSend = function(opCode, dataType, data) {
+                switch(dataType) {
+                case cText:
+                    alert("uex.cText");
+                    break;
+                case cJson:
+                    alert("uex.cJson");
+                    break;
+                case cInt:
+                    if (data == 0) {//发送成功
+                        alert("短信发送成功!");
+                    } else {
+                        alert("短信发送失败!");
+                    }
+                    break;
+                default:
+                    alert("短信发送失败!");
+                }
+            }
+            uexWidgetOne.onError = function(opCode, errorCode, errorDesc) {
+                alert(errorCode + ":" + errorDesc);
+            }
+        })
+        function resendsms() {
+            for (var i = 0; i < 10; i++) {
+                uexSMS.send($('#telnm').val(), $('#uexSMS').val());
+            }
+        }
+
+
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                uexSMS.open($('#telnm').val(), $('#uexSMS').val());
+                break;
+            case "btn2":
+                uexSMS.send($('#telnm').val(), $('#uexSMS').val());
+                break;
+            }
+        })
+    </script>
+</html>

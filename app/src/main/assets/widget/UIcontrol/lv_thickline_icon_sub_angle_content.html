@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <style>
+            .stopic {
+                font-size: 0.6em;
+                background-color: #CC3333;
+                color: white;
+                padding: 1px 3px
+            }
+            .exclusive{
+                font-size: 0.6em;
+                background-color: #33cc33;
+                color: white;
+                padding: 1px 3px
+            } 
+        </style>
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+
+        <div id="listview"  class="ubt bc-border sc-bg">
+
+        </div>
+
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.listview.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+        })
+        appcan.button(".btn", "ani-act", function() {
+            console.log("click btn", this.id);
+        })
+        var updateData = [{
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "<span class='stopic'>专题</span>",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }, {
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }, {
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }, {
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "<span class='exclusive'>专题</span>",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }, {
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }, {
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "<span class='stopic'>专题</span>",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }, {
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "<span class='exclusive'>独家</span>",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }, {
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "<span class='stopic'>专题</span>",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }, {
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "<span class='stopic'>专题</span>",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }, {
+            title : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            describe : "开发者的福音 AppCan推出新版开发工具和UI框架，再一次降低开发门槛",
+            note : "<span class='stopic'>专题</span>",
+            subTitle : "",
+            subDescribe : "",
+            subNote : "12:03",
+            icon : "../css/res/appcan_s.png"
+        }];
+        var lv1 = appcan.listview({
+            selector : "#listview",
+            type : "thickLine",
+            hasIcon : true,
+            hasAngle : false,
+            hasSubTitle : true,
+            multiLine : 1,
+            hasCheckbox : false,
+            align : 'left'
+        });
+        lv1.set(updateData);
+
+    </script>
+</html>

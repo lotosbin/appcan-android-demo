@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/appcan.control.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/project/new.css">
+</head>
+<body class="um-vp " ontouchstart>
+<div>
+     <!--列表开始-->
+    <div class="c-wh-pLG" id="listview">
+       
+    </div>
+    <!--列表结束-->
+</div>
+<script src="js/appcan.js"></script>
+<script src="js/appcan.control.js"></script>	
+<script src="js/appcan.listview.js"></script>
+</body>
+<script>
+
+appcan.ready(function(){
+	appcan.initBounce();
+})
+var lv = appcan.listview({
+            selector : "#listview",
+            type : "multiLine",
+            hasIcon : false,
+            hasAngle : false,
+            hasSubTitle:false
+        });
+        lv.set([{
+            title : "uexCall",
+            describe : '电话',
+            pagename : "uexCall",
+            pageurl:"systemapi/uexCall.html"
+        }, {
+            title : "uexCamera",
+            describe : '照相机',
+            pagename : "uexCamera",
+            pageurl:"systemapi/uexCamera.html"
+        }, {
+            title : "uexContact",
+            describe : '联系人',
+            pagename : "uexContact",
+            pageurl:"systemapi/uexContact.html"
+        }, {
+            title : "uexControl",
+            describe : '控件',
+            pagename : "uexControl",
+            pageurl:"systemapi/uexControl.html"
+        }, {
+            title : "uexDataBaseMgr",
+            describe : '数据库',
+            pagename : "uexDataBaseMgr",
+            pageurl:"systemapi/uexDataBaseMgr.html"
+        }, {
+            title : "uexDevice",
+            describe : '设备',
+            pagename : "uexDevice",
+            pageurl:"systemapi/uexDevice.html"
+        }, {
+            title : "uexEmail",
+            describe : '邮件',
+            pagename : "uexEmail",
+            pageurl:"systemapi/uexEmail.html"
+        }, {
+            title : "uexFileMgr",
+            describe : '文件',
+            pagename : "uexFileMgr",
+            pageurl:"systemapi/uexFileMgr.html"
+        }, {
+            title : "uexLocalNotification",
+            describe : '本地通知',
+            pagename : "uexLocalNotification",
+            pageurl:"systemapi/uexLocalNotification.html"
+        }, {
+            title : "uexLocation",
+            describe : '地理位置',
+            pagename : "uexLocation",
+            pageurl:"systemapi/uexLocation.html"
+        }, {
+            title : "uexSensor",
+            describe : '传感器',
+            pagename : "uexSensor",
+            pageurl:"systemapi/uexSensor.html"
+        }, {
+            title : "uexSMS",
+            describe : '短信',
+            pagename : "uexSMS",
+            pageurl:"systemapi/uexSMS.html"
+        }]);
+        lv.on('click', function(ele, context, obj, subobj) {
+            appcan.window.open(context.pagename,context.pageurl,10);
+        })
+
+
+
+
+</script>
+</html>

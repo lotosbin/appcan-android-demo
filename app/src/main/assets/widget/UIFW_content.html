@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div>
+            <!--列表开始-->
+            <div class="sc-bg" id="treeview"></div>
+            <!--列表结束-->
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/appcan.listview.js"></script>
+        <script src="js/appcan.treeview.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+        })
+        var tv = appcan.treeview({
+            selector : "#treeview",
+            defaultOpen : 1//默认打开第几项，必须包含数据
+        });
+        tv.set([{
+            header : "窗口动画",
+            content : [{
+                title : '由左往右推入',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '由右往左推入',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '由上往下推入',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '由下往上推入',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '淡入淡出',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '左翻页（android暂不支持）',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '右翻页（android暂不支持）',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '水波纹（android暂不支持）',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '由左往右切入',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '由右往左切入',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '由上往下切入',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }, {
+                title : '由下往上切入',
+                name : "anim",
+                url : "UIcontrol/base.html"
+            }]
+        }, {
+            header : "多Frame交互(左右拖拽切换页面)",
+            name : "multiFrame",
+            url : "UIcontrol/tab_text.html"
+
+        }, {
+            header : "窗口叠加(抽屉式效果)",
+            name : "multiWindow",
+            url : "UIcontrol/drawer.html"
+
+        }, {
+            header : "拖拽刷新(pull to refresh)",
+            content : [{
+                title : '只弹动无刷新',
+                name : "control",
+                url : "UIcontrol/pull_norefresh.html"
+            }, {
+                title : '下拉刷新',
+                name : "control",
+                url : "UIcontrol/pull_toprefresh.html"
+            }, {
+                title : '上拉刷新',
+                name : "control",
+                url : "UIcontrol/pull_bottomrefresh.html"
+            }, {
+                title : '双向刷新',
+                name : "control",
+                url : "UIcontrol/pull_refresh.html"
+            }]
+        }, {
+            header : "网站嵌入",
+            name : "web",
+            url : "UIcontrol/web.html"
+
+        }, {
+            header : "AJAX通信",
+            content : [{
+                title : '数据下载',
+                name : "ajax",
+                url : "UIcontrol/request.html"
+            }]
+        }]);
+
+        tv.on('listviewClick', function(ele, data, obj) {
+            if (data.name == "anim" && data.url) {
+                var animID = parseInt(ele.data("index")) + 1;
+                appcan.window.open(data.name, data.url, animID);
+            } else if (data.name == "control" && data.url) {
+                appcan.window.open(data.name, data.url, 10);
+            } else if (data.name == "ajax") {
+                appcan.window.open({
+                    name : data.name,
+                    data : data.url,
+                    type : 16
+                });
+            }
+        });
+        tv.on('click', function(ele, obj, subobj) {
+            if (obj.name == "multiWindow") {
+                appcan.window.open({
+                    name : obj.name,
+                    data : obj.url,
+                    dataType : "",
+                    aniId : 10,
+                    type:256
+                });
+            } else if (obj.name && obj.url) {
+                appcan.window.open(obj.name, obj.url, 10);
+            }
+        });
+    </script>
+</html>

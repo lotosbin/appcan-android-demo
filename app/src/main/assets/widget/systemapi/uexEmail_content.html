@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp c-wh-pLG sc-bg" ontouchstart>
+        <div class="conbor uof">
+            <div class="consj">
+                <div class="ulev2 uin9">
+                    邮件
+                </div>
+                <div class="uin8">
+                    进入发邮件界面
+                </div>
+                <div class="c-wh  ubt bc-border uinput ub ub-f1">
+                    <div class="umw1-7"></div>
+                    <input placeholder="联系人姓名" type="text"  class="ub-f1 font-c" id="receiverEmail" value="test@163.com">
+                </div>
+                <div class="c-wh  ubt bc-border uinput ub ub-f1">
+                    <div class="umw1-7"></div>
+                    <input placeholder="邮件主题" type="text"  class="ub-f1 font-c" id="subject" value="测试邮件">
+                </div>
+                <div class="c-wh  ubt ubb bc-border uinput ub ub-f1">
+                    <div class="umw1-7"></div>
+                    <input placeholder="邮件内容" type="text"  class="ub-f1 font-c" id="content" value="我是邮件">
+                </div>
+                <div class="umh1"></div>
+                <div class="uin10">
+                    附件路径(基于file协议)
+                </div>
+                <div class="umh1"></div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn1" >
+                        启动文件浏览器
+                    </div>
+                </div>
+                <div class="umh1"></div>
+                <div class="ubt ubb bc-border bc-bg uinput ub ub-f1">
+                    <div class="umw1-7"></div>
+                    <input placeholder="" type="text"  class="ub-f1 font-c" id="attachmentPath" readOnly="true" >
+                </div>
+                <div class="umh1"></div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn2" >
+                        进入发邮件界面
+                    </div>
+                </div>
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+            uexFileMgr.cbExplorer = function(opCode, dataType, data) {
+
+                $('#attachmentPath').val(data);
+
+            }
+            uexWidgetOne.onError = function(opCode, errorCode, errorDesc) {
+
+                alert(errorCode + ":" + errorDesc);
+
+            }
+        })
+        function emailOpen() {
+
+            var Email = $('#receiverEmail').val();
+
+            if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(Email)) {
+
+                alert('Email格式不正确');
+
+                return;
+
+            }
+
+            uexEmail.open(Email, $('#subject').val(), $('#content').val(), $('#attachmentPath').val());
+
+        }
+
+
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                uexFileMgr.explorer('');
+                break;
+            case "btn2":
+                emailOpen();
+                break;
+            }
+        })
+    </script>
+</html>

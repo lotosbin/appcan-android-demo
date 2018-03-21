@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+        <script type="text/javascript"></script>
+    </head>
+    <body class="um-vp c-wh-pLG" ontouchstart>
+
+        <div class="bc-bg" id="list">
+
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/citys.js"></script>
+    </body>
+    <script>
+        var cText = 0;
+        var cJson = 1;
+        var cInt = 2;
+
+        // appcan.ready(function() {
+            // appcan.initBounce();
+            // uexIndexBar.onTouchResult = function(opId, dataType, data) {
+                // alert(opId+":"+dataType+":"+data);
+                // //appcan.logs('data=='+data);
+                // location.href = "#" + data;
+//                 
+            // }
+      window.uexOnload=function(){
+          uexIndexBar.onTouchResult = function(opId, dataType, data) {
+         // alert(opId+":"+dataType+":"+data);
+          appcan.logs('data=='+data);
+          location.href = "#" + data;
+         } 
+            var arr = {
+                'A' : '',
+                'B' : '',
+                'C' : '',
+                'D' : '',
+                'E' : '',
+                'F' : '',
+                'G' : '',
+                'H' : '',
+                'I' : '',
+                'J' : '',
+                'K' : '',
+                'L' : '',
+                'M' : '',
+                'N' : '',
+                'O' : '',
+                'P' : '',
+                'Q' : '',
+                'R' : '',
+                'S' : '',
+                'T' : '',
+                'U' : '',
+                'V' : '',
+                'W' : '',
+                'X' : '',
+                'Y' : '',
+                'Z' : ''
+            }
+            var str = '';
+
+            for (var i in list.citys) {
+                arr[list.citys[i].code] += '<div class="uinn bc-bg b-gra">' + list.citys[i].name + '</div>';
+            }
+            for (var i in arr) {
+                var aa = arr[i];
+                str += ('<div id="' + i + '" class="uinn sc-bg-active ubb bc-border bc-text">' + i + '</div>' + aa);
+            }
+            $('#list').html(str);
+            indexBarOpen();
+}
+        function indexBarOpen() {
+            var x = parseInt($('#list').offset().width);
+            var y = parseInt(appcan.getLocVal('uexIndexBar_y'));
+            var em = $('#list').css('font-size');
+            var w = 2 * parseInt(em);
+            var h = parseInt(appcan.getLocVal('uexIndexBar_h'));
+            uexIndexBar.open(x - w, y, w, h);
+
+        }
+
+
+        appcan.button(".btn", "btn-act", function() {
+            console.log("click btn", this.id);
+        })
+    </script>
+</html>

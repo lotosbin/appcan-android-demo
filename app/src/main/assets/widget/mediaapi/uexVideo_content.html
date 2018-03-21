@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/project/new.css">
+</head>
+<body class="um-vp c-wh-pLG" ontouchstart>
+<div class="conbor uof">
+    <div class="consj"> 
+        <div class="ulev2 uin9">视频</div>
+        
+        <div class="umh1"></div>
+        <div class="uin">
+            <div class="ub btn bc-text-head bc-btn ub-ac ub-pc" > 录制视频</div>
+        </div>
+        <div class="umh1"></div>
+        <div class="uhide" id="list">
+            <div class="ub-f1 ">
+                <div >视频名称</div>
+                <div class="ulev-1">2014-10-10  19:51</div>
+            </div>
+            <div class="fa fa-play "></div>
+        </div>
+        <input type="hidden" id="path" value ="" />
+        <div class="umh1"></div>
+    </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>	
+<script src="../js/appcan.listview.js"></script>
+</body>
+<script>
+var cText = 0;
+var cJson = 1;
+var cInt = 2;
+
+appcan.ready(function(){
+	appcan.initBounce();
+	uexVideo.cbRecord = function(opCode,dataType,data){
+        switch(dataType){
+            case cText:
+            var begin = data.lastIndexOf('/')+1;
+            var name = data.substring(begin);
+            var d, time = "";           //Declare variables.
+               d = new Date();                           //Create Date object.
+               time += d.getFullYear()+"-";                           
+               time += (d.getMonth() + 1) + "-";            //Get month
+               time += d.getDate() + " ";                   //Get day
+               time += d.getHours()+":";
+               time += d.getMinutes();
+            $('#list')[0].className="ub  ubb ubt bc-border bc-bg sc-text breakword ub-ac uinn2"
+            var html = '<div class="ub-f1 "><div >'+name+'</div><div class="ulev-1">'+time+'</div></div><div class="fa fa-play "></div>';
+                $('#path').val(data);
+                $('#list').html(html);
+            break;
+            case cJson:
+                alert("uex.cJSON");
+                break;
+            case cInt:
+                alert("uex.cInt");
+                break;
+            default:
+                alert("Error");
+        }
+    };
+    
+    
+    uexWidgetOne.onError=function(opCode,errorCode,errorDesc){
+        alert(errorCode+":"+errorDesc);
+        }
+})
+ appcan.button(".btn", "btn-act", function() {
+            uexVideo.record();
+        })
+  appcan.button("#list", "sc-bg-active", function() {
+            console.log("click btn", this.id);
+            var path = $('#path').val();
+            uexVideo.open(path)
+        })       
+        </script>
+</html>

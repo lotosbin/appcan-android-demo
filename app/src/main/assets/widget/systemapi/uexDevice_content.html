@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/project/new.css">
+    </head>
+    <body class="um-vp c-wh-pLG sc-bg" ontouchstart>
+        <div class="conbor">
+            <div class="consj uof">
+                <div class="ulev2 uin9">
+                    设备
+                </div>
+                <div class="uin8">
+                    1.获取设备信息
+                </div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn1" >
+                        获取信息
+                    </div>
+                </div>
+
+                <div class="umh1"></div>
+                <div class="ubb ubt bc-border bc-bg tcxx breakword" id="info"></div>
+
+                <div class="umh1"></div>
+
+                <div class="uin8">
+                    2.手机震动测试
+                </div>
+                <div class="umh1"></div>
+                <div class="uin10">
+                    震动
+                </div>
+                <div class="uin10">
+                    输入震动持续时间（毫秒为单位）：
+                </div>
+                <div class="c-wh ubb ubt bc-border uinput ub ub-f1">
+                    <div class="umw1-7"></div>
+                    <input placeholder="联系人姓名" type="text"  class="ub-f1 font-c" id="time" value="500">
+                </div>
+                <div class="umh1"></div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn2" >
+                        震动
+                    </div>
+                </div>
+                <div class="umh1"></div>
+                <div class="uin">
+                    <div class="ub btn bc-text-head bc-btn ub-ac ub-pc"  id="btn3" >
+                        停止震动
+                    </div>
+                </div>
+
+                <div class="umh1"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        var cText = 0;
+        var cJson = 1;
+        var cInt = 2;
+        appcan.ready(function() {
+            appcan.initBounce();
+            uexDevice.onOrientationChange = function(mode) {
+                if (mode == 1) {
+                    $('#data')[0].innerHTML = "正竖屏";
+                } else if (mode == 2) {
+                    $('#data')[0].innerHTML = "左横屏";
+                } else if (mode == 4) {
+                    $('#data')[0].innerHTML = "倒竖屏";
+                } else if (mode == 8) {
+                    $('#data')[0].innerHTML = "右横屏";
+                }
+            };
+            uexDevice.cbGetInfo = function(opCode, dataType, data) {
+                var device = eval('(' + data + ')');
+
+                var osVersion = device.os;
+                if (osVersion != null && osVersion.length > 0) {
+                    $("<div>系统版本:" + osVersion + '</div>').appendTo($('#info'))
+                }
+                var manufacturer = device.manufacturer;
+                if (manufacturer != null && manufacturer.length > 0) {
+                    $("<div>厂商信息:" + manufacturer + '</div>').appendTo($('#info'))
+                }
+
+                var imei = device.imei;
+                if (imei != null && imei.length > 0) {
+                    $("<div>IMEI信息:" + imei + '</div>').appendTo($('#info'))
+                }
+                var deviceToken = device.deviceToken;
+                if (deviceToken != null && deviceToken.length > 0) {
+                    $("<div>DeviceToken:" + deviceToken + '</div>').appendTo($('#info'))
+                }
+
+                var connectStatus = device.connectStatus;
+                if (connectStatus != null && connectStatus.length > 0) {
+                    if (connectStatus == -1) {
+                        $("<div>网络状态:网络不可用</div>").appendTo($('#info'))
+                    } else if (connectStatus == 0) {
+                        $("<div>网络状态:WIFI网络</div>").appendTo($('#info'))
+                    } else if (connectStatus == 1) {
+                        $("<div>网络状态:3G网络</div>").appendTo($('#info'))
+                    } else if (connectStatus == 2) {
+                        $("<div>网络状态:2G网络</div>").appendTo($('#info'))
+                    }
+                }
+                var restDiskSize = device.restDiskSize;
+                if (restDiskSize != null && restDiskSize.length > 0) {
+                    $("<div>磁盘空间:" + restDiskSize + '</div>').appendTo($('#info'))
+                }
+                var operatorName = device.mobileOperatorName;
+                if (operatorName != null && operatorName.length > 0) {
+                    $("<div>运营商名称:" + operatorName + '</div>').appendTo($('#info'))
+                }
+
+                var model = device.model;
+                if (model != null && model.length > 0) {
+                    $("<div>型号:" + model + '</div>').appendTo($('#info'))
+                }
+                var resolutionRatio = device.resolutionRatio;
+                if (resolutionRatio != null && resolutionRatio.length > 0) {
+                    $("<div>分辨率:" + resolutionRatio + '</div>').appendTo($('#info'))
+                }
+            }
+
+            uexWidgetOne.cbError = function(opCode, errorCode, errorInfo) {
+                alert(errorInfo);
+            }
+        })
+        function getInfo() {
+            var arr = {
+                '系统版本' : "1",
+                '厂商信息' : "2",
+                'IMEI信息' : "10",
+                '网络状态' : "13",
+                '磁盘空间' : "14",
+                '运营商名称' : "15",
+                'DeviceToken' : "11",
+                'UUID' : "20",
+                '型号' : "17",
+                '分辨率' : "18"
+            };
+            for (var i in arr) {
+                uexDevice.getInfo(arr[i]);
+            }
+        }
+
+
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id) {
+            case "btn1":
+                getInfo();
+                break;
+            case "btn2":
+                uexDevice.vibrate($('#time').val());
+                break;
+            case "btn3":
+                uexDevice.cancelVibrate();
+                break;
+            }
+        })
+    </script>
+</html>
